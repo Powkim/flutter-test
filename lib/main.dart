@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:toonflix/screens/board.dart';
+import 'package:toonflix/screens/state.dart';
 
 void main() {
   runApp(const App());
@@ -10,7 +12,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
             backgroundColor: const Color(0xFFE7626C),
@@ -22,6 +24,6 @@ class App extends StatelessWidget {
           ),
           cardColor: const Color(0xFFF4EDDB),
         ),
-        home: BoardList());
+        home: Statetest());
   }
 }

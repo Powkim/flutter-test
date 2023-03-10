@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/boardView.dart';
 import 'package:toonflix/screens/board_create.dart';
+
+import 'test_controller.dart';
 
 class BoardList extends StatefulWidget {
   // String? title;
@@ -12,83 +16,112 @@ class BoardList extends StatefulWidget {
 }
 
 class _BoardListState extends State<BoardList> {
-  void addData(title, content) {
-    setState(() {
-      arr.add({'title': title, 'content': content});
-    });
-  }
+  
+  // void addData(title, content) {
+  //   setState(() {
+  //     a.arr.add({'title': title, 'content': content});
+    
+  //   });
+  // }
+  // void editData(title, content,idx) {
+  //   setState(() {
+  //     a.arr[idx]['title']=title;
+  //     a.arr[idx]['content']=content;
+    
+  //   });
+  // }
 
-  List<Map<String, String>> arr = [
-    {'id': '1', 'title': '제목', 'content': '내용'},
-    {'id': '2', 'title': '제목2', 'content': '내용2'},
-    {'id': '3', 'title': '제목', 'content': '내용'},
-    {'id': '4', 'title': '제목', 'content': '내용'},
-    {'id': '5', 'title': '제목', 'content': '내용'},
-    {'id': '6', 'title': '제목', 'content': '내용'},
-    {'id': '', 'title': '제목2', 'content': '내용2'},
-    {'id': '2', 'title': '제목', 'content': '내용'},
-    {'id': '2', 'title': '제목', 'content': '내용'},
-    {'id': '2', 'title': '제목', 'content': '내용'},
-    {'id': '2', 'title': '제목', 'content': '내용'},
-    {'id': '2', 'title': '제목2', 'content': '내용2'},
-    {'id': '2', 'title': '제목', 'content': '내용'},
-    {'id': '2', 'title': '제목', 'content': '내용'},
-    {'id': '2', 'title': '제목', 'content': '내용'},
-  ];
+
+        final Controller c = Get.find();
+        final Boardcontroller a= Get.find();
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
-          actions: [
+          title:  Obx(() =>Text("${c.count}")),
+leading:  IconButton(
+              onPressed: () {
+              Get.to(BoardCreate());
+              
+              },
+              icon: Icon(Icons.add),
+            ),          actions: [
+            
             IconButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BoardCreate(test: addData)));
+             Get.to(BoardCreate());
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => BoardCreate(
+                //               // test: addData,
+                //               titleEdit: '',
+                //               contentEdit: '',
+                //               onEdit: false,
+                //             )));
               },
               icon: Icon(Icons.add),
             )
           ],
         ),
         body: SafeArea(
-          child: ListView.builder(
-            itemCount: arr.length,
+          child: Obx(() =>ListView.builder(
+            itemCount: a.arr.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                height: 120,
+                height: 170,
                 color: Colors.white,
                 child: Column(
                   children: [
                     ListTile(
-                      title: Text(arr[index]['title'] ?? '',
+                      title: Text(a.arr[index]['title'] ?? '',
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => BoardView(
-                                    arr[index]['title'] ?? '',
-                                    arr[index]['content'] ?? '')));
+                        
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => BoardView(
+                        //             a.arr[index]['title'] ?? '',
+                        //             a.arr[index]['content'] ?? '')));
                       },
-                      subtitle: Text(arr[index]['content'] ?? '',
+                      subtitle: Text(a.arr[index]['content'] ?? '',
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
                     ),
                     IconButton(
                         onPressed: () {
                           setState(() {
-                            arr.removeWhere(
-                                (element) => element["id"] == arr[index]["id"]);
+                            a.arr.removeWhere(
+                                (element) => element["id"] == a.arr[index]["id"]);
                           });
                         },
-                        icon: Icon(Icons.delete_outline))
+                        icon: Icon(Icons.delete_outline)),
+                    IconButton(
+                        onPressed: () {
+                          Get.to(BoardCreate());
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => BoardCreate(
+                          //             test: editData,
+                          //             onEdit: true,
+                          //             idx:index,
+                          //             titleEdit: a.arr[index]['title'] ?? '',
+                          //             contentEdit:
+                          //                 a.arr[index]['content'] ?? '')));
+                        },
+                        icon: Icon(Icons.edit))
                   ],
                 ),
               );
             },
-          ),
-        ));
+          )),
+        )     , floatingActionButton:
+          FloatingActionButton(child: Icon(Icons.add), onPressed: c.increment)
+);
   }
 }

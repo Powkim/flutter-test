@@ -1,32 +1,47 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:toonflix/screens/boardState.dart';
 
 class BoardCreate extends StatefulWidget {
-  Function test;
-  BoardCreate({super.key, required this.test});
-
+  Function? test;
+  int? idx;
+  String? titleEdit;
+  String? contentEdit;
+  bool? onEdit;
+  BoardCreate(
+      {super.key,this.idx, this.test, this.onEdit, this.titleEdit, this.contentEdit});
   @override
   State<BoardCreate> createState() => _BoardCreateState();
 }
 
-void sendData() {}
-
 class _BoardCreateState extends State<BoardCreate> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
+  final Boardcontroller a= Get.find();
 
-  @override
+  // void initState() {
+  //   super.initState();
+  //   titleController.text = (widget.onEdit! ? widget.titleEdit ??'' : '');
+  //   contentController.text = (widget.onEdit! ? widget.contentEdit : '')!;
+  // }
+
+  @override 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(actions: [
         IconButton(
           onPressed: () {
-            widget.test(titleController.text, contentController.text);
-            // Navigator.popUntil(context, ModalRoute.withName("/"));
-            Navigator.of(context).pop();
+            // widget.onEdit! ? widget.test!(titleController.text, contentController.text,widget.idx):
+a.addData();
+        Get.back();
 
-            // Navigator.push(
+            // Navigator.popUntil(context, ModalRoute.withName("/"));
+            // Navigator.of(context).pop();
+            // Navigator.push
             //     context,
             //     MaterialPageRoute(
             //         builder: (context) => Boardlist(
