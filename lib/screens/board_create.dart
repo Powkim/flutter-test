@@ -5,9 +5,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:toonflix/screens/boardState.dart';
+import 'package:toonflix/screens/httptest.dart';
 
 class BoardCreate extends StatefulWidget {
   Function? test;
+    Function? editfunc;
+    Function? postfunc;
   int? idx;
   String? titleEdit;
   String? contentEdit;
@@ -22,7 +25,7 @@ class _BoardCreateState extends State<BoardCreate> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
   final Boardcontroller a= Get.find();
-
+final MyWidget call = Get.find();
   void initState() {
     super.initState();
     titleController.text = (widget.onEdit?? false ? widget.titleEdit ??'' : '');

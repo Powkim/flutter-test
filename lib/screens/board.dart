@@ -9,6 +9,8 @@ import 'test_controller.dart';
 
 class BoardList extends StatefulWidget {
   Function? callData;
+
+
   BoardList({super.key,this.callData});
 
   @override
