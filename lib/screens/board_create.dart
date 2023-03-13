@@ -25,8 +25,8 @@ class _BoardCreateState extends State<BoardCreate> {
 
   void initState() {
     super.initState();
-    titleController.text = (widget.onEdit! ? widget.titleEdit ??'' : '');
-    contentController.text = (widget.onEdit! ? widget.contentEdit : '')!;
+    titleController.text = (widget.onEdit?? false ? widget.titleEdit ??'' : '');
+    contentController.text = (widget.onEdit?? false ? widget.contentEdit : '')!;
   }
 
   @override 

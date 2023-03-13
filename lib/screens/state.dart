@@ -37,7 +37,7 @@ final Boardcontroller a= Get.put(Boardcontroller());
                   child: Text("Go to Other"), onPressed: () => Get.to(Other())),
                    ElevatedButton(
             
-                  child: Text("to Other"), onPressed: () => Get.off(BoardList()))
+                  child: Text("to Other"), onPressed: () => Get.to(BoardList()))
         ],
       )),
       floatingActionButton:

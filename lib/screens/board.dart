@@ -3,20 +3,27 @@ import 'package:get/get.dart';
 import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/boardView.dart';
 import 'package:toonflix/screens/board_create.dart';
+import 'package:toonflix/screens/httptest.dart';
 
 import 'test_controller.dart';
 
 class BoardList extends StatefulWidget {
-  // String? title;
-  // String? content;
-  BoardList({super.key});
+  Function? callData;
+  BoardList({super.key,this.callData});
 
   @override
   State<BoardList> createState() => _BoardListState();
 }
 
 class _BoardListState extends State<BoardList> {
-  
+  @override
+  void initState() {
+
+ call.getHttp();
+    super.initState();
+ 
+  }
+
   // void addData(title, content) {
   //   setState(() {
   //     a.arr.add({'title': title, 'content': content});
@@ -34,6 +41,8 @@ class _BoardListState extends State<BoardList> {
 
         final Controller c = Get.find();
         final Boardcontroller a= Get.find();
+            final MyWidget call = Get.put(MyWidget());
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +52,7 @@ class _BoardListState extends State<BoardList> {
           title:  Obx(() =>Text("${c.count}")),
 leading:  IconButton(
               onPressed: () {
-              Get.to(BoardCreate());
+              Get.back();
               
               },
               icon: Icon(Icons.add),
@@ -69,9 +78,9 @@ leading:  IconButton(
           ],
         ),
         body: SafeArea(
-          child: ListView.builder(
+          child:Obx(()=> ListView.builder(
             itemCount: a.arr.length,
-            itemBuilder: (BuildContext context, int index)=> Obx(() {
+            itemBuilder: (BuildContext context, int index) {
               
               return Container(
                 height: 170,
@@ -127,9 +136,9 @@ leading:  IconButton(
                   ],
                 ),
               );
-            },)
+            },
           ),
-        )     , floatingActionButton:
+        ) )    , floatingActionButton:
           FloatingActionButton(child: Icon(Icons.add), onPressed: c.increment)
 );
   }
