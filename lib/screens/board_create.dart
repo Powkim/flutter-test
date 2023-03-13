@@ -23,11 +23,11 @@ class _BoardCreateState extends State<BoardCreate> {
   final contentController = TextEditingController();
   final Boardcontroller a= Get.find();
 
-  // void initState() {
-  //   super.initState();
-  //   titleController.text = (widget.onEdit! ? widget.titleEdit ??'' : '');
-  //   contentController.text = (widget.onEdit! ? widget.contentEdit : '')!;
-  // }
+  void initState() {
+    super.initState();
+    titleController.text = (widget.onEdit! ? widget.titleEdit ??'' : '');
+    contentController.text = (widget.onEdit! ? widget.contentEdit : '')!;
+  }
 
   @override 
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class _BoardCreateState extends State<BoardCreate> {
       appBar: AppBar(actions: [
         IconButton(
           onPressed: () {
-            // widget.onEdit! ? widget.test!(titleController.text, contentController.text,widget.idx):
-a.addData();
+            widget.onEdit! ? a.editData(titleController.text, contentController.text,widget.idx):
+a.addData(titleController.text, contentController.text);
         Get.back();
 
             // Navigator.popUntil(context, ModalRoute.withName("/"));
@@ -47,7 +47,7 @@ a.addData();
             //         builder: (context) => Boardlist(
             //             test(titleController.text, contentController.text))));
           },
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
         )
       ]),
       body: SafeArea(

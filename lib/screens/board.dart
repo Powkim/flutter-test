@@ -51,7 +51,9 @@ leading:  IconButton(
             
             IconButton(
               onPressed: () {
-             Get.to(BoardCreate());
+             Get.to(BoardCreate( titleEdit: '',
+          contentEdit: '',
+        onEdit: false));
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
@@ -67,16 +69,17 @@ leading:  IconButton(
           ],
         ),
         body: SafeArea(
-          child: Obx(() =>ListView.builder(
+          child: ListView.builder(
             itemCount: a.arr.length,
-            itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (BuildContext context, int index)=> Obx(() {
+              
               return Container(
                 height: 170,
                 color: Colors.white,
                 child: Column(
                   children: [
                     ListTile(
-                      title: Text(a.arr[index]['title'] ?? '',
+                      title: Text(a.arr[index].title ?? '',
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
                       onTap: () {
@@ -88,21 +91,27 @@ leading:  IconButton(
                         //             a.arr[index]['title'] ?? '',
                         //             a.arr[index]['content'] ?? '')));
                       },
-                      subtitle: Text(a.arr[index]['content'] ?? '',
+                      subtitle: Text(a.arr[index].content ?? '',
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
                     ),
                     IconButton(
                         onPressed: () {
-                          setState(() {
-                            a.arr.removeWhere(
-                                (element) => element["id"] == a.arr[index]["id"]);
-                          });
+                          a.deleteData(index);
+                          // setState(() {
+                          //   a.arr.removeWhere(
+                          //       (element) => element["id"] == a.arr[index]["id"]);
+                          // });
                         },
                         icon: Icon(Icons.delete_outline)),
                     IconButton(
                         onPressed: () {
-                          Get.to(BoardCreate());
+                          Get.to(BoardCreate( onEdit: true,idx:index, titleEdit: a.arr[index].title ?? '', contentEdit:a.arr[index].content??''));
+                          //                 a.arr[index]['content'] ?? '')
+                          //             contentEdit:
+                          //                 a.arr[index]['content'] ?? ''),);
+                          //             contentEdit:
+                          //                 a.arr[index]['content'] ?? ''));
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(
@@ -118,8 +127,8 @@ leading:  IconButton(
                   ],
                 ),
               );
-            },
-          )),
+            },)
+          ),
         )     , floatingActionButton:
           FloatingActionButton(child: Icon(Icons.add), onPressed: c.increment)
 );

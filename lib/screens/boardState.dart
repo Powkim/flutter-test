@@ -1,14 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+class Boardlist {
+   int? id;
+   String? title;
+   String? content;
+Boardlist({this.id,this.title,this.content});
+  }
 class Boardcontroller extends GetxController{
-   List<Map<String, String>> arr = [
-    {'id': '1', 'title': '제목', 'content': '내용'},
-    {'id': '2', 'title': '제목2', 'content': '내용2'},
-    {'id': '3', 'title': '제목', 'content': '내용'},
-    {'id': '4', 'title': '제목', 'content': '내용'},
-    {'id': '5', 'title': '제목', 'content': '내용'},
-    {'id': '6', 'title': '제목', 'content': '내용'},
-    
-  ] .obs;
-addData()=>arr.add({'title': '제목입니다', 'content': '내용입니다.'});
+  
+   RxList<Boardlist> arr = <Boardlist>[].obs;
+addData(title,content){arr.add(Boardlist(title:title,content:content,id:arr.length+1));arr.refresh();}
+editData(title,content,idx){
+  arr[idx].title=title;
+  arr[idx].content=content; 
+  arr.refresh();
+  }  
+deleteData(index)=>arr.removeWhere((element) => element.id == arr[index].id);
+
 }
+
