@@ -27,13 +27,9 @@ RxList<ReportModel> reportList=<ReportModel>[] .obs;
   }
 Future<void> testfunction() async {
   var resultList = await call.getHttp();
-  String a='title';
   for(int i=0;i<resultList.length;i++){
-    var reportModel;
  reportList.add(ReportModel.fromJson(resultList[i])) ;    
-print(resultList[i]);
   }
- print(reportList.value)  ;
 //     print(data);
 // return data;
 }
@@ -53,7 +49,7 @@ leading:  IconButton(
               Get.back();
               
               },
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
             ),          actions: [
             
             IconButton(
@@ -62,7 +58,7 @@ leading:  IconButton(
           contentEdit: '',
         onEdit: false));
               },
-              icon: Icon(Icons.add),
+              icon:const Icon(Icons.add),
             )
           ],
         ),
@@ -70,10 +66,9 @@ leading:  IconButton(
          child:Obx(()=> ListView.builder(
             itemCount: reportList.length,
             itemBuilder: (BuildContext context, int index) {
-              print(index);
               return
 Container(
-                height: 170,
+                height: 200,
                 color: Colors.white,
                 child: Column(
                   children: [
@@ -86,6 +81,9 @@ Container(
                       subtitle: Text(reportList[index].type.toString(),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
+                    ),
+                    Container(
+                      child: Text(reportList[index].userId?.email??''),
                     ),
                     IconButton(
                         onPressed: () {
