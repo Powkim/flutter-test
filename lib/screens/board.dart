@@ -1,49 +1,45 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/boardView.dart';
 import 'package:toonflix/screens/board_create.dart';
 import 'package:toonflix/screens/httptest.dart';
+import 'package:toonflix/screens/reportModel.dart';
 
 import 'test_controller.dart';
 
 class BoardList extends StatefulWidget {
-  Function? callData;
+  BoardList({super.key});
 
-
-  BoardList({super.key,this.callData});
 
   @override
   State<BoardList> createState() => _BoardListState();
 }
 
 class _BoardListState extends State<BoardList> {
+RxList<ReportModel> reportList=<ReportModel>[] .obs;
   @override
   void initState() {
-
- call.getHttp();
+    testfunction();
     super.initState();
- 
+  
   }
-
-  // void addData(title, content) {
-  //   setState(() {
-  //     a.arr.add({'title': title, 'content': content});
-    
-  //   });
-  // }
-  // void editData(title, content,idx) {
-  //   setState(() {
-  //     a.arr[idx]['title']=title;
-  //     a.arr[idx]['content']=content;
-    
-  //   });
-  // }
-
-
+Future<void> testfunction() async {
+  var resultList = await call.getHttp();
+  String a='title';
+  for(int i=0;i<resultList.length;i++){
+    var reportModel;
+ reportList.add(ReportModel.fromJson(resultList[i])) ;    
+print(resultList[i]);
+  }
+ print(reportList.value)  ;
+//     print(data);
+// return data;
+}
         final Controller c = Get.find();
         final Boardcontroller a= Get.find();
-            final MyWidget call = Get.put(MyWidget());
+        final MyWidget call = Get.put(MyWidget());
 
 
   @override
@@ -65,82 +61,48 @@ leading:  IconButton(
              Get.to(BoardCreate( titleEdit: '',
           contentEdit: '',
         onEdit: false));
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => BoardCreate(
-                //               // test: addData,
-                //               titleEdit: '',
-                //               contentEdit: '',
-                //               onEdit: false,
-                //             )));
               },
               icon: Icon(Icons.add),
             )
           ],
         ),
         body: SafeArea(
-          child:Obx(()=> ListView.builder(
-            itemCount: a.arr.length,
+         child:Obx(()=> ListView.builder(
+            itemCount: reportList.length,
             itemBuilder: (BuildContext context, int index) {
-              
-              return Container(
+              print(index);
+              return
+Container(
                 height: 170,
                 color: Colors.white,
                 child: Column(
                   children: [
                     ListTile(
-                      title: Text(a.arr[index].title ?? '',
+                      title: Text(reportList[index].id.toString(),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
                       onTap: () {
-                        
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => BoardView(
-                        //             a.arr[index]['title'] ?? '',
-                        //             a.arr[index]['content'] ?? '')));
                       },
-                      subtitle: Text(a.arr[index].content ?? '',
+                      subtitle: Text(reportList[index].type.toString(),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
                     ),
                     IconButton(
                         onPressed: () {
-                          a.deleteData(index);
-                          // setState(() {
-                          //   a.arr.removeWhere(
-                          //       (element) => element["id"] == a.arr[index]["id"]);
-                          // });
+                          // a.deleteData(index);
                         },
                         icon: Icon(Icons.delete_outline)),
                     IconButton(
                         onPressed: () {
-                          Get.to(BoardCreate( onEdit: true,idx:index, titleEdit: a.arr[index].title ?? '', contentEdit:a.arr[index].content??''));
-                          //                 a.arr[index]['content'] ?? '')
-                          //             contentEdit:
-                          //                 a.arr[index]['content'] ?? ''),);
-                          //             contentEdit:
-                          //                 a.arr[index]['content'] ?? ''));
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => BoardCreate(
-                          //             test: editData,
-                          //             onEdit: true,
-                          //             idx:index,
-                          //             titleEdit: a.arr[index]['title'] ?? '',
-                          //             contentEdit:
-                          //                 a.arr[index]['content'] ?? '')));
+                          // Get.to(BoardCreate( onEdit: true,idx:index, titleEdit: a.arr[index].title ?? '', contentEdit:a.arr[index].content??''));
                         },
                         icon: Icon(Icons.edit))
                   ],
                 ),
               );
-            },
-          ),
-        ) )    , floatingActionButton:
+
+  }))
+         )    , floatingActionButton:
           FloatingActionButton(child: Icon(Icons.add), onPressed: c.increment)
 );
   }

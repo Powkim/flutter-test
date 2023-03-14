@@ -38,8 +38,8 @@ final MyWidget call = Get.find();
       appBar: AppBar(actions: [
         IconButton(
           onPressed: () {
-            widget.onEdit! ? a.editData(titleController.text, contentController.text,widget.idx):
-a.addData(titleController.text, contentController.text);
+            // widget.onEdit! ? a.editData(titleController.text, contentController.text,widget.idx):
+call.postHttp();
         Get.back();
 
             // Navigator.popUntil(context, ModalRoute.withName("/"));
