@@ -1,10 +1,14 @@
 
+import 'dart:developer';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/boardView.dart';
 import 'package:toonflix/screens/board_create.dart';
 import 'package:toonflix/screens/httptest.dart';
+import 'package:toonflix/screens/reportController.dart';
 import 'package:toonflix/screens/reportModel.dart';
 
 import 'test_controller.dart';
@@ -12,32 +16,31 @@ import 'test_controller.dart';
 class BoardList extends StatefulWidget {
   BoardList({super.key});
 
-
   @override
   State<BoardList> createState() => _BoardListState();
 }
-
 class _BoardListState extends State<BoardList> {
-RxList<ReportModel> reportList=<ReportModel>[] .obs;
+        final Boardcontroller a= Get.find();
+        final ReportController b = Get.put(ReportController());
+        final Controller c = Get.find();
+final scrollController = ScrollController();
+        // final MyWidget call = Get.put(MyWidget());
+// RxList<ReportModel> b.reportList=<ReportModel>[] .obs;
   @override
   void initState() {
-    testfunction();
-    super.initState();
-  
-  }
-Future<void> testfunction() async {
-  var resultList = await call.getHttp();
-  for(int i=0;i<resultList.length;i++){
- reportList.add(ReportModel.fromJson(resultList[i])) ;    
-  }
-//     print(data);
-// return data;
-}
-        final Controller c = Get.find();
-        final Boardcontroller a= Get.find();
-        final MyWidget call = Get.put(MyWidget());
+    b.testfunction();
+    scrollController.addListener(() {
+   if(scrollController.position.pixels>=scrollController.position.maxScrollExtent-160&& b.isLast==false){
+b.testfunction();
+   }
+      });
 
+    
+    // print('offset:${d.scrollController.value.position.pixels}');
 
+    // });
+
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -63,28 +66,30 @@ leading:  IconButton(
           ],
         ),
         body: SafeArea(
-         child:Obx(()=> ListView.builder(
-            itemCount: reportList.length,
+         child: Obx(()=>b.httpstatus == Httpstatus.loading ? 
+         Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),))
+         :
+         ListView.builder(
+          controller:scrollController,
+            itemCount: b.reportList.length,
             itemBuilder: (BuildContext context, int index) {
               return
-Container(
-                height: 200,
+         Container(
+                height: 220,
                 color: Colors.white,
                 child: Column(
                   children: [
                     ListTile(
-                      title: Text(reportList[index].id.toString(),
+                      title: Text(b.reportList[index].id.toString(),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
                       onTap: () {
                       },
-                      subtitle: Text(reportList[index].type.toString(),
+                      subtitle: Text(b.reportList[index].type.toString(),
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
                     ),
-                    Container(
-                      child: Text(reportList[index].userId?.email??''),
-                    ),
+               
                     IconButton(
                         onPressed: () {
                           // a.deleteData(index);
@@ -94,12 +99,19 @@ Container(
                         onPressed: () {
                           // Get.to(BoardCreate( onEdit: true,idx:index, titleEdit: a.arr[index].title ?? '', contentEdit:a.arr[index].content??''));
                         },
-                        icon: Icon(Icons.edit))
+                        icon: Icon(Icons.edit),
+                        ),
+                  (index+1==b.reportList.length)&&(b.httpstatus.value == Httpstatus.loadingmore)?
+                  
+                  Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),)):SizedBox()
                   ],
                 ),
               );
-
-  }))
+         
+         })
+         
+         )
+       
          )    , floatingActionButton:
           FloatingActionButton(child: Icon(Icons.add), onPressed: c.increment)
 );
