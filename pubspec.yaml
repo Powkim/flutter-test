@@ -32,8 +32,8 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
   dio: ^5.0.2
+  filter_list: ^1.0.2
   motion_toast: ^2.6.5
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2

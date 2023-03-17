@@ -42,4 +42,17 @@ class UserId {
     email = json['email'];
   }
 
+
+
+}
+class ReportTitle {
+  String? title;
+
+  ReportTitle({this.title});
+
+  ReportTitle.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+  
+  }
+
 }
