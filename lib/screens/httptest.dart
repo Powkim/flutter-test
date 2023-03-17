@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -17,22 +16,34 @@ try {
   options: Options(headers: 
   {'Authorization':
   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiaG9zZW9uZyBraW0iLCJpZCI6MSwiZW1haWwiOiJnaHRqZDk1N0B1bmRlcnBpbi5rciIsImhhc2giOiIgICAgICAgICJ9.YTVPz3_D4bQ79idYaucGSCFJCg9OfUnckx7GosvHQk4'}));
-
 return response.data['result'];
-
 } catch (e) {
   return  [];
 }
 }
 
-void postHttp() async {
-  final response = await dio.post('https://test.kees.tv/api/report', data: {}); 
+Future<Map<String,dynamic>>  postHttp() async {
+  try {
+      final response = await dio.post('https://test.kees.tv/api/report', data: {"type":"POST",
+    "idOfType":"250",
+    "reportOptionId":6},  
+    options: Options(headers: 
+  {'Authorization':
+  'Bearer eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiaG9zZW9uZyBraW0iLCJpZCI6MSwiZW1haWwiOiJnaHRqZDk1N0B1bmRlcnBpbi5rciIsImhhc2giOiIgICAgICAgICJ9.YTVPz3_D4bQ79idYaucGSCFJCg9OfUnckx7GosvHQk4'}));
+return response.data ;
+
+  } catch (e) {
+print(e);
+    throw Exception();
+  }
 }
 
   @override
-  Future getDelete() {
-    // TODO: implement getDelete
+  Future deleteHttp() {
+    // TODO: implement deleteHttp
     throw UnimplementedError();
   }
+
+ 
 
 }

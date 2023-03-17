@@ -13,6 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner:false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
             backgroundColor: const Color(0xFFE7626C),
