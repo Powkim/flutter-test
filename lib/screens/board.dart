@@ -24,54 +24,55 @@ class BoardList extends StatefulWidget {
 }
 class _BoardListState extends State<BoardList> {
         final Boardcontroller a= Get.find();
-        final ReportController b = Get.put(ReportController());
+        final ReportController b = Get.find();
         final Controller c = Get.find();
         final scrollController = ScrollController();
         final titlelist=["id","type","title","createAt","Userid","name","phonenumber","email"];
         final typeFilter=["POST","USER","ROOM"];
         final titleFiilter=["폭언 및 욕설","차별적인 발언","대화 방해","광고","성희롱","불법"];
+ void typeHide() {
+    setState(() {
+      b.onType = !b.onType;
+    });
 
+  }
         // final MyWidget call = Get.put(MyWidget());
 // RxList<ReportModel> b.reportList=<ReportModel>[] .obs;
   @override
   void initState() {
     b.testfunction();
+    print('object');
     scrollController.addListener(() {
    if(scrollController.position.pixels>=scrollController.position.maxScrollExtent&& b.isLast==false){
 b.testfunction();
    }
    
   });
+
   }
   void onTop(){
     scrollController.jumpTo(0);
    }
-
+void callFilter(){
+  if(b.titleList.length>1){
+print('초과');
+  }
+  else{
+   print(b.titleList);
+    b.testfunction();
+  }
+}
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
         appBar: AppBar(
           title:  Text("신고 리스트"),
-          backgroundColor: customColors.get(ColorSet.talkRoomHeader)
-// leading: 
-//  IconButton(
-//               onPressed: () {
-//               Get.back();
-              
-//               },
-//               icon: const Icon(Icons.add),
-//             ),          actions: [
-            
-        //     IconButton(
-        //       onPressed: () {
-        //      Get.to(BoardCreate( titleEdit: '',
-        //   contentEdit: '',
-        // onEdit: false));
-        //       },
-        //       icon:const Icon(Icons.add),
-        //     )
-          // ],
+          backgroundColor: customColors.get(ColorSet.talkRoomHeader),
+         actions: [
+IconButton(onPressed: (){
+  print(Get.isRegistered<ReportController>());}, icon: Icon(Icons.abc)),
+         ]
         ),
         body: SafeArea(
          child: 
@@ -97,13 +98,13 @@ b.testfunction();
                        padding: EdgeInsets.all(10),
                        width: 200,
                        height: 50,
-                       child: Center(child: Text('${titlelist[index]}',style: TextStyle(fontWeight: FontWeight.bold),)),
+                       child: Center(child:
+                       TextButton(onPressed: typeHide, child: Text('${titlelist[index]}',style: TextStyle(fontWeight: FontWeight.bold),)
+                        )),
                      ) ;
                    },
                   )
                 ,),
-
-
                  Stack(
                    children: [
                      Container(
@@ -128,64 +129,10 @@ b.testfunction();
                                    test(b.reportList[index].userId!.name.toString()),
                                    test(b.reportList[index].userId!.phoneNumber.toString()),
                                   test(b.reportList[index].userId!.email.toString()),
-                                  //  Container(
-                                  //   width: 200,
-                                  //    child:Text(b.reportList[index].id.toString(),textAlign:TextAlign.center,)),
-
-                                  // Container(
-                                  //   width: 200,
-                                  //    child:Text(b.reportList[index].type.toString(),textAlign:TextAlign.center,)),
-                                  //  Container(
-                                  //   width: 200,
-                                  //    child:Text(b.reportList[index].reportOptionTitle.toString(),textAlign:TextAlign.center,)),
-                                  // Container(
-                                  //   width: 200,
-                                  //    child:Text(b.reportList[index].createdAt.toString(),textAlign:TextAlign.center,)),
-                                  // Container(
-                                  //   width: 200,
-                                  //    child:Text(b.reportList[index].idOfType.toString(),textAlign:TextAlign.center,)),
-                                  // Container(
-                                  //   width: 200,
-                                  //    child:Text(b.reportList[index].userId!.name.toString(),textAlign:TextAlign.center,)),
-                                  // Container(
-                                  //   width: 200,
-                                  //    child:Text(b.reportList[index].userId!.phoneNumber.toString(),textAlign:TextAlign.center,)),
-                                  // Container(
-                                  //   width: 200,
-                                  //    child:Text(b.reportList[index].userId!.email.toString(),textAlign:TextAlign.center,)),
-
-                                  //   Text(b.reportList[index].reportOptionTitle.toString()),
-                                  //   Text(b.reportList[index].createdAt.toString()),
-                                  //   Text(b.reportList[index].type.toString()),
-                                  //  Text(b.reportList[index].idOfType.toString()),
                      ],),          
                                  Row(children: [
                                    Text(''),
-                     ],),                    
-                                  
-                                    // title: Text(b.reportList[index].id.toString(),
-                                    //     style:  TextStyle(
-                                    //         fontSize: 18, color: customColors.get(ColorSet.bluelight))),
-                                    // onTap: () {
-                                    // },
-                                    // subtitle: Text(b.reportList[index].type.toString(),
-                                    //     style: const TextStyle(
-                                    //         fontSize: 18, color: Colors.black)),
-                                  
-                             
-                                  // IconButton(
-                                  //     onPressed: () {
-                                  //       // a.deleteData(index);
-                                  //     },
-                                  //     icon: Icon(Icons.delete_outline)),
-                                  // IconButton(
-                                  //     onPressed: () {
-                                  //       // Get.to(BoardCreate( onEdit: true,idx:index, titleEdit: a.arr[index].title ?? '', contentEdit:a.arr[index].content??''));
-                                  //     },
-                                  //     icon: Icon(Icons.edit),
-                                  //     ),
-                     
-                     
+                     ],),          
                                 (index+1==b.reportList.length)&&(b.httpstatus.value == Httpstatus.loadingmore)?
                                 
                                 Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),)):SizedBox()
@@ -199,38 +146,82 @@ b.testfunction();
                       bottom: 50,
                       right: 50,
                       child: IconButton(onPressed: onTop, icon:Icon(Icons.arrow_upward_outlined))),
-Positioned(top:0,left:200,child:
+Visibility(child: Positioned(
+  
+  top:0,left:200,child:
 Container(
   width:200,
   height:250,
-  color: Colors.red,
-  child: Row(
+decoration: BoxDecoration(border: Border.all(),color: Colors.white,
+),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
-             Checkbox(
-                    value:true ,
-                    onChanged: (value) {
-                      setState(() {
-                       
-                      });
-                    },
-                  ),
-                    Text("All")
+             Row(
+               children: [
+                 Checkbox(
+                        value:b.isCheckPost ,
+                        onChanged: (value) {
+                          setState(() {
+                           b.isCheckPost=value!;
+                           b.checkedList(b.isCheckPost,"POST");
+                          });
+                        },
+                      ),
+                Text("POST")
+               ],
+             ),
+               Row(
+               children: [
+                 Checkbox(
+                        value:b.isCheckUser ,
+                        onChanged: (value) {
+                          setState(() {
+                           b.isCheckUser=value!;
+                           b.checkedList(b.isCheckUser,"USER");
+                          });
+                        },
+                      ),
+                Text("USER")
+               ],
+             ),
+               Row(
+               children: [
+                 Checkbox(
+                        value:b.isCheckRoom ,
+                        onChanged: (value) {
+                          setState(() {
+                           b.isCheckRoom=value!;
+                           b.checkedList(b.isCheckRoom,"ROOM");
+                          });
+                        },
+                      ),
+                Text("ROOM")
+               ],
+             ),
+             Row(
+              children: [                
+                  TextButton(onPressed:callFilter, child: Text('필터')),
+                   TextButton(onPressed: typeHide, child: Text('취소'))
+              ],
+             )
+
     ],
   ),
 
 )
  ,)
+,visible: b.onType,
+)
 
-                   ],
-                 ),
-               ],
-             ),
-          
+//                    ],
+//                  ),
+                   ]
            ),
-         )
+         ])
          
          )
-       
+     
          )   
 //           , floatingActionButton:
 //           FloatingActionButton(child: Icon(Icons.add), onPressed: () {
@@ -256,7 +247,7 @@ Container(
 //           });
 //           // .onError((error, stackTrace) =>);
 //             })
-);
+)));
   }
 
   Widget test(String content) {

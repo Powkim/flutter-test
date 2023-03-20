@@ -10,7 +10,7 @@ final dio = Dio();
 @override
 Future <List<dynamic>> getHttp(page) async {
 try {
-    final response = await dio.get('http://10.220.210.107:8080/api/report', 
+    final response = await dio.get('http://10.220.210.122:8080/api/report', 
   queryParameters:
    {'type': 'POST', 'status': 'PENDING','idOfType':'250','reportOptionId':'0','registerUserId':'0','page':'${page}','orderBy':'true'},
   options: Options(headers: 

@@ -5,6 +5,9 @@ import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/custom_colors.dart';
 import 'package:toonflix/screens/test_controller.dart';
 
+import 'httptest.dart';
+import 'reportController.dart';
+
 class Statetest extends StatefulWidget {
   const Statetest({super.key});
 
@@ -13,19 +16,19 @@ class Statetest extends StatefulWidget {
 }
 
 class _StatetestState extends State<Statetest> {
-  bool? isChecked = false;
+         final Boardcontroller a= Get.put(Boardcontroller());
+        final ReportController b = Get.put(ReportController());
+        final Controller c = Get.put(Controller());
+        final MyWidget call = Get.put(MyWidget());
+
 
   @override
   Widget build(context) {
     // Instantiate your class using Get.put() to make it available for all "child" routes there.
-    final Controller c = Get.put(Controller());
-    final Boardcontroller a = Get.put(Boardcontroller());
-    var qurey = 'ALL';
+    // final Controller c = Get.put(Controller());
+    // final Boardcontroller a = Get.put(Boardcontroller());
+
     // final Controller c = Get.find();
-    bool isCheckRed = false;
-    bool isCheckOrange = false;
-    bool isCheckGreen = false;
-    bool isCheckBlue = false;
     return Scaffold(
       // Use Obx(()=> to update Text() whenever count is changed.
       appBar: AppBar(
@@ -63,48 +66,7 @@ class _StatetestState extends State<Statetest> {
                 ),
                 child: const Text(""),
                 onPressed: () => Get.to(Other())),
-            Container(
-              width: 200,
-              height: 250,
-              color: Colors.red,
-              child: Column(
-                children: [
-                  Checkbox(
-                    value: isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        isChecked = value!;
-                        qurey = 'All';
-                        print(qurey);
-                        print(isChecked);
-                      });
-                    },
-                  ),
-                  const Text("All"),
-                  Checkbox(
-                    value: true,
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                  ),
-                  const Text("POST"),
-                  Checkbox(
-                    value: true,
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                  ),
-                  const Text("USER"),
-                  Checkbox(
-                    value: true,
-                    onChanged: (value) {
-                      setState(() {});
-                    },
-                  ),
-                  const Text("ROOM")
-                ],
-              ),
-            )
+            
           ],
         ),
       )),
