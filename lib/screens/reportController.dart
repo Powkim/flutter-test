@@ -12,18 +12,20 @@ RxList<ReportModel> reportList=<ReportModel>[] .obs;
  bool isSucces=false ;
  bool onType = false;
   bool onTitle = false;
-  int title = 0;
+String title = "0";
 
- String typeList="POST"; 
+ String typeList=""; 
 
-void checkedList(String name) {
-  typeList=name;
+void checkedList() {
     page.value=0;
     reportList.value=[];
     onType=false;
-    print('${name}');
-    testfunction();
     isLast.value=false;
+   onTitle = false;
+
+    title=title;
+    testfunction();
+    print('${reportList.value}');
   }
 
 // final MyWidget call = Get.find<MyWidget>();

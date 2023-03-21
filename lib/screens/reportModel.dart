@@ -21,7 +21,7 @@ class ReportModel {
     userId =
         json['userId'] != null ? new UserId.fromJson(json['userId']) : null;
     reportOptionTitle = json['reportOptionTitle'];
-    createdAt = json['createdAt'].cast<int>();
+    DateTime createdAt =DateTime.utc(json['createdAt']) ;
   }
 
 
@@ -43,16 +43,5 @@ class UserId {
   }
 
 
-
-}
-class ReportTitle {
-  String? title;
-
-  ReportTitle({this.title});
-
-  ReportTitle.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-  
-  }
 
 }

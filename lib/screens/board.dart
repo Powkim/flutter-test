@@ -15,7 +15,10 @@ import 'package:toonflix/screens/reportController.dart';
 import 'package:toonflix/screens/reportModel.dart';
 
 import 'test_controller.dart';
-enum Typelist {POST,ROOM,USER}
+enum Typelist {ALL,POST,ROOM,USER}
+enum Titlelist {A,B,C,D,E,F,G,H}
+//         final titleFiilter=["","차별적인 발언","대화 방해","광고","성희롱","불법"];
+
 class BoardList extends StatefulWidget {
   BoardList({super.key});
 
@@ -27,17 +30,23 @@ class _BoardListState extends State<BoardList> {
         final ReportController b = Get.find();
         final Controller c = Get.find();
         final scrollController = ScrollController();
-        final titlelist=["id","type","title","createAt","Userid","name","phonenumber","email"];
-        final titleFiilter=["폭언 및 욕설","차별적인 발언","대화 방해","광고","성희롱","불법"];
+        final titlelist=["id","type","OptionTitle","createAt","Userid","name","phonenumber","email"];
+        final dDay = DateTime.utc(1944, 6, 6);
+
  void typeHide(index) {
     setState(() {
       if(index==1){
      b.onType=!b.onType;
-
+      }
+      else {
+        b.onTitle=!b.onTitle;
       }
     });
   }
-    Typelist _typelist = Typelist.POST;    // final MyWidget call = Get.put(MyWidget());
+ 
+    Typelist _typelist = Typelist.ALL;    // final MyWidget call = Get.put(MyWidget());
+    Titlelist _titlelist = Titlelist.A;    // final MyWidget call = Get.put(MyWidget());
+
 // RxList<ReportModel> b.reportList=<ReportModel>[] .obs;
   @override
   void initState() {
@@ -57,7 +66,6 @@ b.testfunction();
 // }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           title:  Text("신고 리스트"),
@@ -107,6 +115,7 @@ IconButton(onPressed: (){
                      controller:scrollController,
                 itemCount: b.reportList.length,
                 itemBuilder: (BuildContext context, int index) {
+
           return  Container(
                        height: 75,
                        color: Colors.white,
@@ -114,14 +123,16 @@ IconButton(onPressed: (){
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [Row(
                                  children: [
-                                   test(b.reportList[index].id.toString()),
-                                   test(b.reportList[index].type.toString()),
-                                   test(b.reportList[index].reportOptionTitle.toString()),
-                                   test(b.reportList[index].createdAt.toString()),
-                                  test(b.reportList[index].idOfType.toString()),
-                                   test(b.reportList[index].userId!.name.toString()),
-                                   test(b.reportList[index].userId!.phoneNumber.toString()),
-                                  test(b.reportList[index].userId!.email.toString()),
+                                   headerTitle(b.reportList[index].id.toString()),
+                                   headerTitle(b.reportList[index].type.toString()),
+                                   headerTitle(b.reportList[index].reportOptionTitle.toString()),
+                                   headerTitle(
+                                    
+                                    b.reportList[index].createdAt.toString()),
+                                  headerTitle(b.reportList[index].idOfType.toString()),
+                                   headerTitle(b.reportList[index].userId!.name.toString()),
+                                  headerTitle(b.reportList[index].userId!.phoneNumber.toString()),
+                                  headerTitle(b.reportList[index].userId!.email.toString()),
                      ],),          
                                  Row(children: [
                                    Text(''),
@@ -151,56 +162,10 @@ decoration: BoxDecoration(border: Border.all(),color: Colors.white,
   child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-             Row(
-               children: [
-               Radio(
-              value: Typelist.POST,
-              groupValue: _typelist,
-              onChanged: (Typelist? value) {
-                setState(() {
-                  _typelist = value!;
-                b.checkedList("POST");
-
-                  
-                });
-              },
-            ),
-            Text("POST")
-               ],
-             ),
-              Row(
-               children: [
-               Radio(
-              value: Typelist.ROOM,
-              groupValue: _typelist,
-              onChanged: (Typelist? value) {
-                setState(() {
-                  _typelist = value!;
-                  b.checkedList("ROOM");
-                });
-              },
-            ),
-         const   Text("ROOM")
-               ],
-             ),
-              Row(
-               children: [
-               Radio(
-              value: Typelist.USER,
-              groupValue: _typelist,
-              onChanged: (Typelist? value) {
-                setState(() {
-                  _typelist = value!;
-                    b.checkedList("USER");
-
-                  
-                });
-              },
-            ),
-            Text("USER")
-               ],
-             )
-            ,
+      radioBtn("ALL",Typelist.ALL,_typelist),
+      radioBtn("POST",Typelist.POST,_typelist),
+      radioBtn("USER",Typelist.USER,_typelist),
+      radioBtn("ROOM",Typelist.ROOM,_typelist),
              Row(
               children: [                
                    TextButton(onPressed: ()=>typeHide(1), child: Text('취소'))
@@ -214,7 +179,161 @@ decoration: BoxDecoration(border: Border.all(),color: Colors.white,
  ,)
 ,visible: b.onType
 )
+,
+Visibility(child: Positioned(
+  
+  top:0,left:400,child:
+Container(
+  width:200,
+  height:260,
+decoration: BoxDecoration(border: Border.all(),color: Colors.white,
+),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      
+      // radioBtn("폭언 및 욕설",Titlelist.A,_titlelist),
+        Row(
+               children: [
+               Radio(
+              value: Titlelist.A,
+              groupValue: _titlelist,
+              onChanged: (value) {
+                setState(() {
+                 _titlelist = value!;
+                 b.title="0";
 
+                b.checkedList();
+
+                });
+              },
+            ),
+            const Text("All")
+               ],
+             ), 
+       Row(
+               children: [
+               Radio(
+              value: Titlelist.B,
+              groupValue: _titlelist,
+              onChanged: (value) {
+                setState(() {
+                 _titlelist = value!;
+                 b.title="1";
+
+                b.checkedList();
+
+                });
+              },
+            ),
+            const Text("폭언 및 욕설")
+               ],
+             ) ,
+              Row(
+               children: [
+               Radio(
+              value: Titlelist.C,
+              groupValue: _titlelist,
+              onChanged: (value) {
+                setState(() {
+                 _titlelist = value!;
+                    b.title="2";
+                b.checkedList();
+
+                });
+              },
+            ),
+            Text("차별적인 발언")
+               ],
+             ) ,
+              Row(
+               children: [
+               Radio(
+              value: Titlelist.D,
+              groupValue: _titlelist,
+              onChanged: (value) {
+                setState(() {
+                 _titlelist = value!;
+                 b.title="3";
+               b.checkedList();
+                
+                });
+              },
+            ),
+            Text("대화 방해")
+               ],
+             ) ,
+               Row(
+               children: [
+               Radio(
+              value: Titlelist.E,
+              groupValue: _titlelist,
+              onChanged: (value) {
+                setState(() {
+                 _titlelist = value!;
+                 b.title="4";
+               b.checkedList();
+                
+                });
+              },
+            ),
+            Text("광고")
+               ],
+             ) ,
+               Row(
+               children: [
+               Radio(
+              value: Titlelist.F,
+              groupValue: _titlelist,
+              onChanged: (value) {
+                setState(() {
+                 _titlelist = value!;
+                 b.title="5";
+               b.checkedList();
+                
+                });
+              },
+            ),
+            Text("성희롱")
+               ],
+             ) ,
+               Row(
+               children: [
+               Radio(
+              value: Titlelist.G,
+              groupValue: _titlelist,
+              onChanged: (value) {
+                setState(() {
+                 _titlelist = value!;
+                 b.title="6";
+               b.checkedList();
+                
+                });
+              },
+            ),
+            Text("불법")
+               ],
+             ) ,
+
+      // radioBtn("차별적인 발언",Titlelist.B,_titlelist),
+      // radioBtn("대화 방해",Titlelist.C,_titlelist),
+      // radioBtn("광고",Titlelist.D,_titlelist),
+      // radioBtn("성희롱",Titlelist.E,_titlelist),
+      // radioBtn("불법",Titlelist.F,_titlelist),
+      
+             Row(
+              children: [                
+                   TextButton(onPressed: ()=>typeHide(2), child: Text('취소'))
+              ],
+             )
+
+    ],
+  ),
+
+)
+ ,)
+,visible: b.onTitle
+)
 //                    ],
 //                  ),
                    ]
@@ -251,28 +370,47 @@ decoration: BoxDecoration(border: Border.all(),color: Colors.white,
 )));
   }
 
-  Widget test(String content) {
+  Widget headerTitle(String content) {
     return Container(
    width: 200,
        child: Text(content,textAlign:TextAlign.center),
     );
   }
-  Widget radioBtn(type){
+  Widget radioBtn(type,data,group){
     return    Row(
                children: [
                Radio(
-              value: Typelist.USER,
-              groupValue: _typelist,
-              onChanged: (Typelist? value) {
+              value: data,
+              groupValue: group,
+              onChanged: (value) {
                 setState(() {
-                  _typelist = value!;
-                    b.checkedList(type);
-                  
+                group==Titlelist? _titlelist = value!: _typelist = value!;
+                b.typeList=type=="ALL"?'':type;
+                b.checkedList();
                 });
               },
             ),
             Text(type)
                ],
              ) ;
+            //          Row(
+            //    children: [
+            //    Radio(
+            //   value: Titlelist.A,
+            //   groupValue: _titlelist,
+            //   onChanged: (value) {
+            //     setState(() {
+            //      _titlelist = value!;
+            //      b.title="0";
+
+            //     b.checkedList();
+
+            //     });
+            //   },
+            // ),
+            // const Text("All")
+            //    ],
+            //  ), 
+
   }
 }
