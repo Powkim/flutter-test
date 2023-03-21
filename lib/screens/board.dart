@@ -15,7 +15,7 @@ import 'package:toonflix/screens/reportController.dart';
 import 'package:toonflix/screens/reportModel.dart';
 
 import 'test_controller.dart';
-
+enum Typelist {POST,ROOM,USER}
 class BoardList extends StatefulWidget {
   BoardList({super.key});
 
@@ -28,40 +28,33 @@ class _BoardListState extends State<BoardList> {
         final Controller c = Get.find();
         final scrollController = ScrollController();
         final titlelist=["id","type","title","createAt","Userid","name","phonenumber","email"];
-        final typeFilter=["POST","USER","ROOM"];
         final titleFiilter=["폭언 및 욕설","차별적인 발언","대화 방해","광고","성희롱","불법"];
- void typeHide() {
+ void typeHide(index) {
     setState(() {
-      b.onType = !b.onType;
-    });
+      if(index==1){
+     b.onType=!b.onType;
 
+      }
+    });
   }
-        // final MyWidget call = Get.put(MyWidget());
+    Typelist _typelist = Typelist.POST;    // final MyWidget call = Get.put(MyWidget());
 // RxList<ReportModel> b.reportList=<ReportModel>[] .obs;
   @override
   void initState() {
     b.testfunction();
-    print('object');
     scrollController.addListener(() {
    if(scrollController.position.pixels>=scrollController.position.maxScrollExtent&& b.isLast==false){
 b.testfunction();
    }
    
   });
-
   }
   void onTop(){
     scrollController.jumpTo(0);
    }
-void callFilter(){
-  if(b.titleList.length>1){
-print('초과');
-  }
-  else{
-   print(b.titleList);
-    b.testfunction();
-  }
-}
+// void callFilter(){
+  
+// }
   @override
   Widget build(BuildContext context) {
 
@@ -99,7 +92,7 @@ IconButton(onPressed: (){
                        width: 200,
                        height: 50,
                        child: Center(child:
-                       TextButton(onPressed: typeHide, child: Text('${titlelist[index]}',style: TextStyle(fontWeight: FontWeight.bold),)
+                       TextButton(onPressed:()=>typeHide(index), child: Text('${titlelist[index]}',style: TextStyle(fontWeight: FontWeight.bold),)
                         )),
                      ) ;
                    },
@@ -142,6 +135,7 @@ IconButton(onPressed: (){
                        
                        }),
                      ),
+                    
                     Positioned(
                       bottom: 50,
                       right: 50,
@@ -159,50 +153,57 @@ decoration: BoxDecoration(border: Border.all(),color: Colors.white,
     children: [
              Row(
                children: [
-                 Checkbox(
-                        value:b.isCheckPost ,
-                        onChanged: (value) {
-                          setState(() {
-                           b.isCheckPost=value!;
-                           b.checkedList(b.isCheckPost,"POST");
-                          });
-                        },
-                      ),
-                Text("POST")
+               Radio(
+              value: Typelist.POST,
+              groupValue: _typelist,
+              onChanged: (Typelist? value) {
+                setState(() {
+                  _typelist = value!;
+                b.checkedList("POST");
+
+                  
+                });
+              },
+            ),
+            Text("POST")
                ],
              ),
-               Row(
+              Row(
                children: [
-                 Checkbox(
-                        value:b.isCheckUser ,
-                        onChanged: (value) {
-                          setState(() {
-                           b.isCheckUser=value!;
-                           b.checkedList(b.isCheckUser,"USER");
-                          });
-                        },
-                      ),
-                Text("USER")
+               Radio(
+              value: Typelist.ROOM,
+              groupValue: _typelist,
+              onChanged: (Typelist? value) {
+                setState(() {
+                  _typelist = value!;
+                  b.checkedList("ROOM");
+                });
+              },
+            ),
+         const   Text("ROOM")
                ],
              ),
-               Row(
+              Row(
                children: [
-                 Checkbox(
-                        value:b.isCheckRoom ,
-                        onChanged: (value) {
-                          setState(() {
-                           b.isCheckRoom=value!;
-                           b.checkedList(b.isCheckRoom,"ROOM");
-                          });
-                        },
-                      ),
-                Text("ROOM")
+               Radio(
+              value: Typelist.USER,
+              groupValue: _typelist,
+              onChanged: (Typelist? value) {
+                setState(() {
+                  _typelist = value!;
+                    b.checkedList("USER");
+
+                  
+                });
+              },
+            ),
+            Text("USER")
                ],
-             ),
+             )
+            ,
              Row(
               children: [                
-                  TextButton(onPressed:callFilter, child: Text('필터')),
-                   TextButton(onPressed: typeHide, child: Text('취소'))
+                   TextButton(onPressed: ()=>typeHide(1), child: Text('취소'))
               ],
              )
 
@@ -211,7 +212,7 @@ decoration: BoxDecoration(border: Border.all(),color: Colors.white,
 
 )
  ,)
-,visible: b.onType,
+,visible: b.onType
 )
 
 //                    ],
@@ -255,5 +256,23 @@ decoration: BoxDecoration(border: Border.all(),color: Colors.white,
    width: 200,
        child: Text(content,textAlign:TextAlign.center),
     );
+  }
+  Widget radioBtn(type){
+    return    Row(
+               children: [
+               Radio(
+              value: Typelist.USER,
+              groupValue: _typelist,
+              onChanged: (Typelist? value) {
+                setState(() {
+                  _typelist = value!;
+                    b.checkedList(type);
+                  
+                });
+              },
+            ),
+            Text(type)
+               ],
+             ) ;
   }
 }
