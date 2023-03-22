@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:toonflix/screens/boardState.dart';
-import 'package:toonflix/screens/httptest.dart';
+import 'httptest.dart';
 
 class BoardCreate extends StatefulWidget {
   Function? test;

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toonflix/screens/board.dart';
 import 'package:toonflix/screens/state.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() {
+  tz.initializeTimeZones();
   runApp(const App());
+  
 }
 
 class App extends StatelessWidget {
@@ -25,6 +28,6 @@ class App extends StatelessWidget {
           ),
           cardColor: const Color(0xFFF4EDDB),
         ),
-        home: Statetest());
+        home: Statemain());
   }
 }

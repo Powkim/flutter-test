@@ -1,10 +1,14 @@
+import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart';
+import 'package:timezone/browser.dart' as tz;
+
 class ReportModel {
   int? id;
   String? type;
   String? idOfType;
   UserId? userId;
   String? reportOptionTitle;
-  List<int>? createdAt;
+  String? createdAt;
 
   ReportModel(
       {this.id,
@@ -21,7 +25,19 @@ class ReportModel {
     userId =
         json['userId'] != null ? new UserId.fromJson(json['userId']) : null;
     reportOptionTitle = json['reportOptionTitle'];
-    DateTime createdAt =DateTime.utc(json['createdAt']) ;
+
+
+// print(dateTime.timeZoneName);
+// print(dateTime.timeZoneOffset);
+
+DateTime date = json['createdAt'].length==6?DateTime.utc(
+  json['createdAt'][0],json['createdAt'][1],json['createdAt'][2],json['createdAt'][3],json['createdAt'][4],json['createdAt'][5]):DateTime.utc(
+  json['createdAt'][0],json['createdAt'][1],json['createdAt'][2],json['createdAt'][3],json['createdAt'][4]);
+
+// create a timezone object for KST
+TZDateTime kstDateTime = TZDateTime.from(date, tz.getLocation('Asia/Seoul'));
+
+createdAt=DateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초").format(kstDateTime);
   }
 
 

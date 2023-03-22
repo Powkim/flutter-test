@@ -17,15 +17,13 @@ String title = "0";
  String typeList=""; 
 
 void checkedList() {
-    page.value=0;
     reportList.value=[];
     onType=false;
     isLast.value=false;
    onTitle = false;
-
+page.value=0;
     title=title;
     testfunction();
-    print('${reportList.value}');
   }
 
 // final MyWidget call = Get.find<MyWidget>();
@@ -34,16 +32,19 @@ Future<void> testfunction() async {
   
   var resultList = await Get.find<MyWidget>().getHttp(page.value,typeList,title );
   for(int i=0;i<resultList.length;i++){
-reportList.add(ReportModel.fromJson(resultList[i])) ;    
+    reportList.add(ReportModel.fromJson(resultList[i])) ;    
   } 
   httpstatus.value=Httpstatus.success;
   if(resultList.length<15){
-isLast.value=true;
+    isLast.value=true;
   }
-  else{
-    page++;
+else{
+    page.value+=1;
+  
   }
+
   httpstatus.value=Httpstatus.empty;
+  print(page);
 }
 Future<bool> postfunction()async{
 var result = await Get.find<MyWidget>().postHttp() ;

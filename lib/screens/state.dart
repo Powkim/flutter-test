@@ -3,24 +3,24 @@ import 'package:get/get.dart';
 import 'package:toonflix/screens/board.dart';
 import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/custom_colors.dart';
-import 'package:toonflix/screens/test_controller.dart';
+import 'package:toonflix/screens/gridController.dart';
 
 import 'httptest.dart';
 import 'reportController.dart';
 
-class Statetest extends StatefulWidget {
-  const Statetest({super.key});
+class Statemain extends StatefulWidget {
+  const Statemain({super.key});
 
   @override
-  State<Statetest> createState() => _StatetestState();
+  State<Statemain> createState() => _StatemainState();
 }
 
-class _StatetestState extends State<Statetest> {
+class _StatemainState extends State<Statemain> {
          final Boardcontroller a= Get.put(Boardcontroller());
         final ReportController b = Get.put(ReportController());
-        final Controller c = Get.put(Controller());
         final MyWidget call = Get.put(MyWidget());
-
+        final GridController gridcontroller= Get.put(GridController());
+     
 
   @override
   Widget build(context) {
@@ -64,8 +64,9 @@ class _StatetestState extends State<Statetest> {
                   backgroundColor: MaterialStateProperty.all<Color>(
                       customColors.get(ColorSet.graypress)),
                 ),
-                child: const Text(""),
-                onPressed: () => Get.to(Other())),
+                child: Text("포스트 리스트",style:
+                    TextStyle(color: customColors.get(ColorSet.talkRoomHeader))),
+                onPressed: () => gridcontroller.gridfunction()),
             
           ],
         ),
@@ -78,13 +79,12 @@ class _StatetestState extends State<Statetest> {
 
 class Other extends StatelessWidget {
   // You can ask Get to find a Controller that is being used by another page and redirect you to it.
-  final Controller c = Get.find();
 
   Other({super.key});
 
   @override
   Widget build(context) {
     // Access the updated count variable
-    return Scaffold(body: Center(child: Text("${c.count}")));
+    return Scaffold(body: Center(child: Text("")));
   }
 }
