@@ -24,7 +24,7 @@ class _GridListState extends State<GridList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Gridlist')),
+      appBar: AppBar(title: const Text('Gridlist')),
       body:
       SafeArea(
         child:
@@ -67,7 +67,7 @@ class _GridListState extends State<GridList> {
           gridcontroller.currentGroup>1 ?  
           TextButton(onPressed:(()=>{gridcontroller.groupChangefunction('minus')}), child: Text('◀'))
           :
-          SizedBox()
+          const SizedBox()
        ,
            Container(
              width: 600,
@@ -84,7 +84,7 @@ class _GridListState extends State<GridList> {
         ),
          gridcontroller.currentGroup<gridcontroller.totalGroup 
          ? TextButton(onPressed:(()=>{gridcontroller.groupChangefunction('plus')}) , child: Text('▶'))
-         : SizedBox()
+         : const SizedBox()
             ]   
          ),
         )

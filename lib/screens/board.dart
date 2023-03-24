@@ -192,8 +192,8 @@ class _BoardListState extends State<BoardList> {
                            height:260,
                           decoration: BoxDecoration(border: Border.all(),color: Colors.white),
                           child: Column(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: [
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
                           titleBtn("All", Titlelist.A, "0"),
                           titleBtn("폭언 및 욕설", Titlelist.B, "1"),
                           titleBtn("차별적인 발언", Titlelist.C, "2"),
