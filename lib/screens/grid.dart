@@ -8,7 +8,6 @@ class GridList extends StatefulWidget {
   @override
   State<GridList> createState() => _GridListState();
 }
-
 class _GridListState extends State<GridList> {
    final GridController gridcontroller = Get.find();
    final scrollController = ScrollController();
@@ -46,7 +45,7 @@ class _GridListState extends State<GridList> {
                             itemBuilder: (BuildContext context, int index) {
                   return Container(
                     width: 1700,
-                    color: Colors.grey,
+                    // color: Colors.grey,
                     child:
                     gridcontroller.gridList[index].postFileList!.isEmpty 
                      ?Image.network(gridcontroller.gridList[index].imageUrlMini.toString()

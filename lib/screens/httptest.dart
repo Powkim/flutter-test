@@ -48,7 +48,7 @@ return response.data;
 //서버에 썸네일 요청하는 함수
 Future <List<dynamic>> getImage(page) async {
 try {
-    final response = await dio.get('http://10.220.210.122:8080/api/posting/category_posting_list', 
+    final response = await dio.get('http://10.220.211.96:8080/api/posting/category_posting_list', 
   queryParameters:
    {'page':page, 'postCategory': '0'},
   options: Options(headers: 

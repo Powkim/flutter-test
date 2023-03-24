@@ -44,32 +44,25 @@ void pageBtnfunction(){
 }
 void groupChangefunction(String on){
      if(on=='plus'&&currentGroup<totalGroup){
-        currentGroup++;
-        currentPage++;
+        print(currentPage);
         firstNum+=10;
         lastNum+=10;
         if(pageBtnList.length < lastNum) lastNum = pageBtnList.length;
            showBtnList.value=pageBtnList.sublist(firstNum,lastNum);
-            checkedList(firstNum);
-      }
+           checkedList(firstNum);
+            currentGroup++;
+        }
     else if(on=='minus'){
       currentGroup--;   
       currentPage--;
-
-firstNum-=10;
-lastNum-=10;
-if(currentGroup==totalGroup-1){
-lastNum = pageBtnList.length-5;
-}
-gridList.value=[];
-
-showBtnList.value=pageBtnList.sublist(firstNum,lastNum);
-
-checkedList(lastNum);
-
-}
-print(currentPage);
-print(lastNum);
-
+      firstNum-=10;
+      lastNum-=10;
+      if(currentGroup==totalGroup-1){
+        lastNum = pageBtnList.length-5;
+        }
+      gridList.value=[];
+      showBtnList.value=pageBtnList.sublist(firstNum,lastNum);
+    checkedList(lastNum);
+      }
  }
 }
