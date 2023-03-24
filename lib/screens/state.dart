@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:toonflix/screens/board.dart';
 import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/custom_colors.dart';
+import 'package:toonflix/screens/grid.dart';
 import 'package:toonflix/screens/gridController.dart';
 
 import 'httptest.dart';
@@ -66,7 +67,7 @@ class _StatemainState extends State<Statemain> {
                 ),
                 child: Text("포스트 리스트",style:
                     TextStyle(color: customColors.get(ColorSet.talkRoomHeader))),
-                onPressed: () => gridcontroller.gridfunction()),
+                onPressed: () => Get.to(GridList())),
             
           ],
         ),

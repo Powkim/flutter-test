@@ -43,11 +43,14 @@ class _BoardListState extends State<BoardList> {
 
   @override
   void initState() {
-    reportcontroller.testfunction();
+    reportcontroller.reportfunction();
+
     scrollController.addListener(() {
       if(scrollController.position.pixels>=scrollController.position.maxScrollExtent&& reportcontroller.isLast==false){
-       reportcontroller.testfunction();
-      }});
+       reportcontroller.reportfunction();
+      }
+      });
+
   }
   void onTop(){
     scrollController.jumpTo(0);

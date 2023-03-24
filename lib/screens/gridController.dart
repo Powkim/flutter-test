@@ -1,6 +1,5 @@
 
 import 'package:get/get.dart';
-
 import 'gridModel.dart';
 import 'httptest.dart';
 import 'reportModel.dart';
@@ -8,34 +7,69 @@ enum Httpstatus{loading,success,empty,loadingmore}
 class GridController extends GetxController{
 RxList<GridModel> gridList=<GridModel>[] .obs;
  Rx<Httpstatus> httpstatus=Httpstatus.empty.obs;
- RxInt page=0.obs;
-  RxBool isLast=false.obs;
+ //서버 호출용 변수
+ int currentPage=1;
+ RxBool isLast=false.obs;
  bool isSucces=false ;
- bool onType = false;
-  bool onTitle = false;
-String title = "0";
-
- String typeList=""; 
-
-void checkedList() {
+ List pageBtnList=[];
+ RxList showBtnList=[].obs;
+ int currentGroup =1;
+ int totalGroup=0;
+int totalPage=25;
+int currentShowGroup=0;
+int firstNum = 0;
+int lastNum= 10;
+void checkedList(e) {
     gridList.value=[];
-    onType=false;
-    isLast.value=false;
-   onTitle = false;
-page.value=0;
-    title=title;
+    currentPage=e;
     gridfunction();
   }
-
-// final MyWidget call = Get.find<MyWidget>();
+ 
 Future<void> gridfunction() async {
-  // httpstatus.value=page==0?Httpstatus.loading:Httpstatus.loadingmore;
-  
-  var resultList = await Get.find<MyWidget>().getImage();
+var resultList = await Get.find<MyWidget>().getImage(currentPage-1);
   for(int i=0;i<resultList.length;i++){
     gridList.add(GridModel.fromJson(resultList[i])) ;    
-  } 
-  print(gridList);
+  }
 }
 
+void pageBtnfunction(){
+  for(var i=1;i<=totalPage;i++){
+    final group=totalPage/10;
+    totalGroup=group.ceil();
+    pageBtnList.add(i);  
+} 
+    gridList.value=[];
+ showBtnList.value=pageBtnList.sublist(firstNum,lastNum);
+
+}
+void groupChangefunction(String on){
+  if(on=='plus'&&currentGroup<totalGroup){
+currentGroup++;
+currentPage++;
+firstNum+=10;
+lastNum+=10;
+  if(pageBtnList.length < lastNum) lastNum = pageBtnList.length;
+showBtnList.value=pageBtnList.sublist(firstNum,lastNum);
+checkedList(firstNum);
+}
+else if(on=='minus'){
+currentGroup--;   
+currentPage--;
+
+firstNum-=10;
+lastNum-=10;
+if(currentGroup==totalGroup-1){
+lastNum = pageBtnList.length-5;
+}
+gridList.value=[];
+
+showBtnList.value=pageBtnList.sublist(firstNum,lastNum);
+
+checkedList(lastNum);
+
+}
+print(currentPage);
+print(lastNum);
+
+ }
 }

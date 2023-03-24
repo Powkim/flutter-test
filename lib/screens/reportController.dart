@@ -23,13 +23,12 @@ void checkedList() {
    onTitle = false;
 page.value=0;
     title=title;
-    testfunction();
+    reportfunction();
   }
 
 // final MyWidget call = Get.find<MyWidget>();
-Future<void> testfunction() async {
+Future<void> reportfunction() async {
   httpstatus.value=page==0?Httpstatus.loading:Httpstatus.loadingmore;
-  
   var resultList = await Get.find<MyWidget>().getHttp(page.value,typeList,title );
   for(int i=0;i<resultList.length;i++){
     reportList.add(ReportModel.fromJson(resultList[i])) ;    
@@ -40,11 +39,10 @@ Future<void> testfunction() async {
   }
 else{
     page.value+=1;
-  
   }
 
   httpstatus.value=Httpstatus.empty;
-  print(page);
+
 }
 Future<bool> postfunction()async{
 var result = await Get.find<MyWidget>().postHttp() ;

@@ -23,15 +23,17 @@ class ReportModel {
     type = json['type'];
     idOfType = json['idOfType'];
     userId =
-        json['userId'] != null ? new UserId.fromJson(json['userId']) : null;
+        json['userId'] != null ? UserId.fromJson(json['userId']) : null;
     reportOptionTitle = json['reportOptionTitle'];
 
 
 // print(dateTime.timeZoneName);
 // print(dateTime.timeZoneOffset);
 
-DateTime date = json['createdAt'].length==6?DateTime.utc(
-  json['createdAt'][0],json['createdAt'][1],json['createdAt'][2],json['createdAt'][3],json['createdAt'][4],json['createdAt'][5]):DateTime.utc(
+DateTime date = json['createdAt'].length==6
+  ?DateTime.utc(
+  json['createdAt'][0],json['createdAt'][1],json['createdAt'][2],json['createdAt'][3],json['createdAt'][4],json['createdAt'][5])
+  :DateTime.utc(
   json['createdAt'][0],json['createdAt'][1],json['createdAt'][2],json['createdAt'][3],json['createdAt'][4]);
 
 // create a timezone object for KST

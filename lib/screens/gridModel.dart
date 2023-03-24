@@ -3,20 +3,20 @@ class GridModel {
   List<int>? postLastModifiedAt;
   List<int>? postCreatedAt;
   int? postCategory;
-  List<Null>? postFileList;
+  List<PostFileList>? postFileList;
   int? userId;
   int? postCommentCount;
   int? postLikesCount;
   int? postNumber;
   bool? postOn;
-  Null? adminBlock;
+  Null adminBlock;
   int? profileId;
   String? nickname;
   String? imageUrlMini;
   String? country;
   int? postCnt;
   int? searchPostCnt;
-  Null? isLikes;
+  Null isLikes;
 
   GridModel(
       {this.postContent,
@@ -43,12 +43,13 @@ class GridModel {
     postLastModifiedAt = json['postLastModifiedAt'].cast<int>();
     postCreatedAt = json['postCreatedAt'].cast<int>();
     postCategory = json['postCategory'];
-    // if (json['postFileList'] != null) {
-    //   postFileList = <Null>[];
-    //   json['postFileList'].forEach((v) {
-    //     postFileList!.add(new Null.fromJson(v));
-    //   });
-    // }
+    // postFileList= json['postFileList']!= null ? PostFileList.fromJson(json["postFileList"]):null ;
+if (json['postFileList'] != null) {
+      postFileList = <PostFileList>[];
+      json['postFileList'].forEach((v) {
+        postFileList!.add(new PostFileList.fromJson(v));
+      });
+    }
     userId = json['userId'];
     postCommentCount = json['postCommentCount'];
     postLikesCount = json['postLikesCount'];
@@ -64,30 +65,29 @@ class GridModel {
     isLikes = json['isLikes'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['postContent'] = this.postContent;
-    data['postLastModifiedAt'] = this.postLastModifiedAt;
-    data['postCreatedAt'] = this.postCreatedAt;
-    data['postCategory'] = this.postCategory;
-    // if (this.postFileList != null) {
-    //   data['postFileList'] = this.postFileList!.map((v) => v.toJson()).toList();
-    // }
-    data['userId'] = this.userId;
-    data['postCommentCount'] = this.postCommentCount;
-    data['postLikesCount'] = this.postLikesCount;
-    data['postNumber'] = this.postNumber;
-    data['postOn'] = this.postOn;
-    data['adminBlock'] = this.adminBlock;
-    data['profileId'] = this.profileId;
-    data['nickname'] = this.nickname;
-    data['imageUrlMini'] = this.imageUrlMini;
-    data['country'] = this.country;
-    data['postCnt'] = this.postCnt;
-    data['searchPostCnt'] = this.searchPostCnt;
-    data['isLikes'] = this.isLikes;
-    return data;
-  }
 }
 
+class PostFileList {
+  String? fileUrl;
+  String? thumbnailUrl;
+  String? type;
+  bool? imageOn;
+  int? sortNumber;
 
+  PostFileList(
+      {this.fileUrl,
+      this.thumbnailUrl,
+      this.type,
+      this.imageOn,
+      this.sortNumber});
+
+  PostFileList.fromJson(Map<String, dynamic> json) {
+    fileUrl = json['fileUrl'];
+    thumbnailUrl = json['thumbnailUrl'];
+    type = json['type'];
+    imageOn = json['imageOn'];
+    sortNumber = json['sortNumber'];
+  }
+
+  
+}
