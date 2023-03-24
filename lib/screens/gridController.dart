@@ -43,18 +43,18 @@ void pageBtnfunction(){
 
 }
 void groupChangefunction(String on){
-  if(on=='plus'&&currentGroup<totalGroup){
-currentGroup++;
-currentPage++;
-firstNum+=10;
-lastNum+=10;
-  if(pageBtnList.length < lastNum) lastNum = pageBtnList.length;
-showBtnList.value=pageBtnList.sublist(firstNum,lastNum);
-checkedList(firstNum);
-}
-else if(on=='minus'){
-currentGroup--;   
-currentPage--;
+     if(on=='plus'&&currentGroup<totalGroup){
+        currentGroup++;
+        currentPage++;
+        firstNum+=10;
+        lastNum+=10;
+        if(pageBtnList.length < lastNum) lastNum = pageBtnList.length;
+           showBtnList.value=pageBtnList.sublist(firstNum,lastNum);
+            checkedList(firstNum);
+      }
+    else if(on=='minus'){
+      currentGroup--;   
+      currentPage--;
 
 firstNum-=10;
 lastNum-=10;
