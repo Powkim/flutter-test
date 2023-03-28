@@ -4,10 +4,11 @@ import 'package:toonflix/screens/board.dart';
 import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/custom_colors.dart';
 import 'package:toonflix/screens/grid.dart';
-import 'package:toonflix/screens/gridController.dart';
+import 'package:toonflix/screens/controller/gridController.dart';
 
+import 'controller/posting_comment_controller.dart';
 import 'httptest.dart';
-import 'reportController.dart';
+import 'controller/reportController.dart';
 
 class Statemain extends StatefulWidget {
   const Statemain({super.key});
@@ -17,11 +18,12 @@ class Statemain extends StatefulWidget {
 }
 
 class _StatemainState extends State<Statemain> {
-         final Boardcontroller a= Get.put(Boardcontroller());
+        final Boardcontroller a= Get.put(Boardcontroller());
         final ReportController b = Get.put(ReportController());
         final MyWidget call = Get.put(MyWidget());
         final GridController gridcontroller= Get.put(GridController());
-     
+        final PostingCommentController _postingcommentcontroller= Get.put(PostingCommentController());
+
 
   @override
   Widget build(context) {

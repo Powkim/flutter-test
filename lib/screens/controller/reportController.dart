@@ -1,8 +1,8 @@
 
 import 'package:get/get.dart';
 
-import 'httptest.dart';
-import 'reportModel.dart';
+import '../httptest.dart';
+import '../model/reportModel.dart';
 enum Httpstatus{loading,success,empty,loadingmore}
 class ReportController extends GetxController{
 RxList<ReportModel> reportList=<ReportModel>[] .obs;

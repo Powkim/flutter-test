@@ -8,8 +8,8 @@ import 'httptest.dart';
 
 class BoardCreate extends StatefulWidget {
   Function? test;
-    Function? editfunc;
-    Function? postfunc;
+  Function? editfunc;
+  Function? postfunc;
   int? idx;
   String? titleEdit;
   String? contentEdit;
@@ -30,7 +30,6 @@ final MyWidget call = Get.find();
     titleController.text = (widget.onEdit?? false ? widget.titleEdit ??'' : '');
     contentController.text = (widget.onEdit?? false ? widget.contentEdit : '')!;
   }
-
   @override 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,27 +37,19 @@ final MyWidget call = Get.find();
         IconButton(
           onPressed: () {
             // widget.onEdit! ? a.editData(titleController.text, contentController.text,widget.idx):
-call.postHttp();
-        Get.back();
-
-            // Navigator.popUntil(context, ModalRoute.withName("/"));
-            // Navigator.of(context).pop();
-            // Navigator.push
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => Boardlist(
-            //             test(titleController.text, contentController.text))));
-          },
+          call.postHttp();
+          Get.back();
+         },
           icon: const Icon(Icons.add),
         )
       ]),
       body: SafeArea(
           child: Column(
-        children: [
-          TextField(
+          children: [
+           TextField(
             controller: titleController,
-          ),
-          TextField(
+           ),
+           TextField(
             controller: contentController,
           ),
         ],

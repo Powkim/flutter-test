@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:toonflix/screens/gridController.dart';
+import '../screens/controller/gridController.dart';
+import 'controller/posting_comment_controller.dart';
+import 'report_detail.dart';
 
 class GridList extends StatefulWidget {
   const GridList({super.key});
@@ -11,7 +13,7 @@ class GridList extends StatefulWidget {
 class _GridListState extends State<GridList> {
    final GridController gridcontroller = Get.find();
    final scrollController = ScrollController();
-
+  final PostingCommentController _postingCommentController = Get.find();
 @override
   void initState() {
     gridcontroller.gridfunction();
@@ -35,7 +37,8 @@ class _GridListState extends State<GridList> {
                 child: Container(
                   width: 1700,
                   height: 600,
-                  child: GridView.builder(
+                  child: 
+                  GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 8,
                   mainAxisSpacing: 10,
@@ -43,17 +46,29 @@ class _GridListState extends State<GridList> {
                             ),
                             itemCount: gridcontroller.gridList.length,
                             itemBuilder: (BuildContext context, int index) {
-                  return Container(
+                              return
+               GestureDetector(
+        onTap: () {
+          final grdiDetailItem=gridcontroller.gridList[index];
+          Get.to(GridDetail(gridDetailItem: grdiDetailItem,));
+            _postingCommentController.commentListClear();
+_postingCommentController.commentfunc(gridcontroller.gridList[index].postNumber.toString());
+        },
+        child:  Container(
                     width: 1700,
                     // color: Colors.grey,
                     child:
                     gridcontroller.gridList[index].postFileList!.isEmpty 
-                     ?Image.network(gridcontroller.gridList[index].imageUrlMini.toString()
+                     ?Image.network(gridcontroller.gridList[index].imageUrlMini.toString(),fit: BoxFit.cover
+
                       )
-                     //,fit: BoxFit.fill,
-                     :Image.network(gridcontroller.gridList[index].postFileList![0].thumbnailUrl.toString()
+                     :Image.network(gridcontroller.gridList[index].postFileList![0].thumbnailUrl.toString(),fit: BoxFit.cover
+                                             
+
                       ) 
-                  );
+                  )
+                 ,
+        );
                             },
                       ),
                 ),

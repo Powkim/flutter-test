@@ -24,7 +24,7 @@ class MyWidget implements HttpProtocolAb  {
   }
 }
 
-  Future<Map<String,dynamic>>  postHttp() async {
+  Future<Map<String,dynamic>> postHttp() async {
   try {
       final response = await dio.post('https://test.kees.tv/api/report', 
                        data: {"type":"POST","idOfType":"250","reportOptionId":6},  
@@ -46,6 +46,17 @@ class MyWidget implements HttpProtocolAb  {
   try {
       final response = await dio.get('http://10.220.211.96:8080/api/posting/category_posting_list', 
                         queryParameters:{'page':page, 'postCategory': '0'},
+                        options: Options(headers: {'Authorization':token}));
+    return response.data['result'];
+  } 
+  catch (e) {
+  return  [];
+  }
+}
+ Future <List<dynamic>> getComment(postNumber,page) async {
+  try {
+      final response = await dio.get('http://10.220.211.96:8080/api/postingComment/list', 
+                        queryParameters:{ "postNumber" :postNumber,  "page" : page},
                         options: Options(headers: {'Authorization':token}));
     return response.data['result'];
   } 

@@ -11,8 +11,8 @@ import 'package:toonflix/screens/boardState.dart';
 import 'package:toonflix/screens/boardView.dart';
 import 'package:toonflix/screens/board_create.dart';
 import 'package:toonflix/screens/custom_colors.dart';
-import 'package:toonflix/screens/reportController.dart';
-import 'package:toonflix/screens/reportModel.dart';
+import 'package:toonflix/screens/controller/reportController.dart';
+import 'package:toonflix/screens/model/reportModel.dart';
 
 enum Typelist {ALL,POST,ROOM,USER}
 enum Titlelist {A,B,C,D,E,F,G,H}
