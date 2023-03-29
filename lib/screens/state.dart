@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:toonflix/screens/board.dart';
-import 'package:toonflix/screens/boardState.dart';
+import 'package:toonflix/screens/widget/board.dart';
 import 'package:toonflix/screens/custom_colors.dart';
-import 'package:toonflix/screens/grid.dart';
+import 'package:toonflix/screens/widget/grid.dart';
 import 'package:toonflix/screens/controller/gridController.dart';
 
 import 'controller/posting_comment_controller.dart';
-import 'httptest.dart';
+import 'repository/http_protocol.dart';
 import 'controller/reportController.dart';
 
 class Statemain extends StatefulWidget {
@@ -18,9 +17,8 @@ class Statemain extends StatefulWidget {
 }
 
 class _StatemainState extends State<Statemain> {
-        final Boardcontroller a= Get.put(Boardcontroller());
         final ReportController b = Get.put(ReportController());
-        final MyWidget call = Get.put(MyWidget());
+        final HttpProtocol call = Get.put(HttpProtocol());
         final GridController gridcontroller= Get.put(GridController());
         final PostingCommentController _postingcommentcontroller= Get.put(PostingCommentController());
 

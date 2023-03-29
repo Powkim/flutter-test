@@ -21,9 +21,8 @@ class GridModel {
   int? postCnt;
   int? searchPostCnt;
   Null isLikes;
-
-  GridModel(
-      {this.postContent,
+  GridModel({
+      this.postContent,
       this.postLastModifiedAt,
       this.postCreatedAt,
       this.postCategory,
@@ -40,16 +39,20 @@ class GridModel {
       this.country,
       this.postCnt,
       this.searchPostCnt,
-      this.isLikes});
-
+      this.isLikes
+   });
   GridModel.fromJson(Map<String, dynamic> json) {
     postContent = json['postContent'];
     postLastModifiedAt = json['postLastModifiedAt'].cast<int>();
+    // for(var i=0;i<=json['postCreatedAt'].length;i++){
+    // DateTime.utc(json['postCreatedAt'][i]);
+    // }
     DateTime date = json['postCreatedAt'].length==6
     ?DateTime.utc(
     json['postCreatedAt'][0],json['postCreatedAt'][1],json['postCreatedAt'][2],json['postCreatedAt'][3],json['postCreatedAt'][4],json['postCreatedAt'][5])
     :DateTime.utc(
     json['postCreatedAt'][0],json['postCreatedAt'][1],json['postCreatedAt'][2],json['postCreatedAt'][3],json['postCreatedAt'][4]);
+    
     TZDateTime kstDateTime = TZDateTime.from(date, tz.getLocation('Asia/Seoul'));
     postCreatedAt=DateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초").format(kstDateTime);
     postCategory = json['postCategory'];
@@ -73,7 +76,6 @@ class GridModel {
     searchPostCnt = json['searchPostCnt'];
     isLikes = json['isLikes'];
   }
-
 }
 
 class PostFileList {
