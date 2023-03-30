@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:toonflix/screens/controller/grid_controller.dart';
-import 'package:toonflix/screens/controller/posting_comment_controller.dart';
-import 'package:toonflix/screens/controller/reportController.dart';
-import 'package:toonflix/screens/repository/http_protocol.dart';
+import 'package:adminpage/screens/controller/grid_controller.dart';
+import 'package:adminpage/screens/controller/posting_comment_controller.dart';
+import 'package:adminpage/screens/controller/reportController.dart';
+import 'package:adminpage/screens/repository/http_protocol.dart';
 
 
 

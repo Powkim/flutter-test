@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:toonflix/screens/etc/custom_colors.dart';
-import 'package:toonflix/screens/controller/reportController.dart';
+import 'package:adminpage/screens/etc/custom_colors.dart';
+import 'package:adminpage/screens/controller/reportController.dart';
 
 enum Typelist {ALL,POST,ROOM,USER}
 enum TitleList {

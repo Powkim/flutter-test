@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:toonflix/screens/binding/bindings.dart';
-import 'package:toonflix/screens/state.dart';
+import 'package:adminpage/screens/binding/bindings.dart';
+import 'package:adminpage/screens/state.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 void main() {
