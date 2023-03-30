@@ -19,6 +19,7 @@ class _GridDetailState extends State<GridDetail> {
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 56,
+          
           centerTitle: false,
           title:const Padding(
           padding: EdgeInsets.only(bottom:3),
@@ -55,13 +56,13 @@ class _GridDetailState extends State<GridDetail> {
                         child:Image.network(widget.gridDetailItem.imageUrlMini.toString(),fit: BoxFit.cover,) 
                       ),
                      Container(
+                       decoration: BoxDecoration(
+                       borderRadius:BorderRadius.circular(20)
+                       ),
                        child:Text(
                        "${widget.gridDetailItem.nickname}s Post",style:
                        const TextStyle(fontSize: 14, fontFamily: "NotoSansBold",
                        )),
-                       decoration: BoxDecoration(
-                       borderRadius:BorderRadius.circular(20)
-                       )
                       ),
                      ],
                     ),
@@ -93,13 +94,13 @@ class _GridDetailState extends State<GridDetail> {
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10
                           ),
-                          itemCount:widget.gridDetailItem.postFileList.length,
-                          itemBuilder: (context, index) {
+                        itemCount:widget.gridDetailItem.postFileList.length,
+                        itemBuilder: (context, index) {
                           return Image.network(widget.gridDetailItem.postFileList[index].thumbnailUrl,fit: BoxFit.cover);
                           }
                         ,)
                        )
-                    ],),
+                    ],)
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -151,11 +152,11 @@ class _GridDetailState extends State<GridDetail> {
                                         TextSpan(
                                           style: TextStyle(fontFamily: 'NotoSansBold',fontSize: 14,color:customColors.get(ColorSet.graysilver)),
                                           children: <TextSpan> [
-                                          TextSpan(text:_postingCommentController.postCommentList[index].commentCreatedAt?[0].toString()??""),
-                                          const TextSpan(text:"."),
-                                          TextSpan(text:_postingCommentController.postCommentList[index].commentCreatedAt?[1].toString()??""),
-                                          const TextSpan(text:"."),
-                                          TextSpan(text:_postingCommentController.postCommentList[index].commentCreatedAt?[2].toString()??""),
+                                            TextSpan(text:_postingCommentController.postCommentList[index].commentCreatedAt?[0].toString()??""),
+                                            const TextSpan(text:"."),
+                                            TextSpan(text:_postingCommentController.postCommentList[index].commentCreatedAt?[1].toString()??""),
+                                            const TextSpan(text:"."),
+                                            TextSpan(text:_postingCommentController.postCommentList[index].commentCreatedAt?[2].toString()??""),
                                           ]
                                         )
                                        ),

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../model/gridModel.dart';
 import '../repository/http_protocol.dart';
 //posting model 
-enum Httpstatus{loading,success,empty,error}
+enum Httpstatus{loading,success,empty,error,detailLoading}
 class GridController extends GetxController{
   RxList<GridModel> gridList=<GridModel>[] .obs;
   Rx<Httpstatus> httpStatus=Httpstatus.empty .obs;
@@ -28,10 +28,11 @@ class GridController extends GetxController{
 //전체 게시글 요청하는 함수 
   Future<void> gridFunction() async {
     httpStatus.value=Httpstatus.loading;
+    gridList.value=[];
     try{
      var resultList = await Get.find<HttpProtocol>().getPostingList(currentPage-1);
       for(int i=0;i<resultList.length;i++){
-        gridList.add(GridModel.fromJson(resultList[i])) ;    
+          gridList.add(GridModel.fromJson(resultList[i])) ;    
       }
      httpStatus.value=Httpstatus.success;
     }

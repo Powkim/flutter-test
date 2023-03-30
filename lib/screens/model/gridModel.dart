@@ -54,8 +54,8 @@ class GridModel {
     TZDateTime kstDateTime = TZDateTime.from(date, tz.getLocation('Asia/Seoul'));
     postCreatedAt=DateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초").format(kstDateTime);
     postCategory = json['postCategory'];
+    postFileList = <PostFileList>[];
     if (json['postFileList'] != null) {
-      postFileList = <PostFileList>[];
       json['postFileList'].forEach((v) {
         postFileList!.add( PostFileList.fromJson(v));
       });
