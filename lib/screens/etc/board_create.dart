@@ -34,7 +34,7 @@ class _BoardCreateState extends State<BoardCreate> {
         IconButton(
           onPressed: () {
           // widget.onEdit! ? a.editData(titleController.text, contentController.text,widget.idx):
-          call.postHttp();
+          // call.postHttp();
           Get.back();
          },
           icon: const Icon(Icons.add),

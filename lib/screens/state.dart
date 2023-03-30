@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toonflix/screens/widget/report_list.dart';
-import 'package:toonflix/screens/custom_colors.dart';
+import 'package:toonflix/screens/etc/custom_colors.dart';
 import 'package:toonflix/screens/widget/grid_list.dart';
-import 'package:toonflix/screens/controller/gridController.dart';
+import 'package:toonflix/screens/controller/grid_controller.dart';
 import 'controller/posting_comment_controller.dart';
 import 'repository/http_protocol.dart';
 import 'controller/reportController.dart';

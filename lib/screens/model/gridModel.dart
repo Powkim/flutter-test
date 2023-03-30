@@ -57,7 +57,7 @@ class GridModel {
     if (json['postFileList'] != null) {
       postFileList = <PostFileList>[];
       json['postFileList'].forEach((v) {
-        postFileList!.add(new PostFileList.fromJson(v));
+        postFileList!.add( PostFileList.fromJson(v));
       });
     }
     userId = json['userId'];

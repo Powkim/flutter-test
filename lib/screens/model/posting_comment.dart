@@ -13,30 +13,30 @@ class PostingCommentModel{
   //  late List<dynamic>? commentLikes;
 
    PostingCommentModel.fromJson(Map<String,dynamic> data) {
-    this.userId = data["userId"];
-    this.content = data["content"];
-    this.commentNumber = data["commentNumber"];
-    this.commentOn = data["commentOn"];
-    this.commentLastModifiedAt = data["commentLastModifiedAt"];
-    this.commentCreatedAt = data["commentCreatedAt"];
-    this.posting = data["posting"];
-    this.imageUrlMini = data["imageUrlMini"]??"";
-    this.nickName = data["nickName"];
-    this.translationComment = data["translationComment"];
-    // this.commentLikes = data["commentLikes"];
+    userId = data["userId"];
+    content = data["content"];
+    commentNumber = data["commentNumber"];
+    commentOn = data["commentOn"];
+    commentLastModifiedAt = data["commentLastModifiedAt"];
+    commentCreatedAt = data["commentCreatedAt"];
+    posting = data["posting"];
+    imageUrlMini = data["imageUrlMini"]??"";
+    nickName = data["nickName"];
+    translationComment = data["translationComment"];
+    // commentLikes = data["commentLikes"];
         
   }
 
   PostingCommentModel.empty(){
-    this.userId = 0;
-    this.content = null;
-    this.commentNumber = 0;
-    this.commentOn = null;
-    this.commentLastModifiedAt = null;
-    this.posting = null;
-    this.imageUrlMini = "";
-    this.nickName = "";
-    // this.commentLikes = null;
+    userId = 0;
+    content = null;
+    commentNumber = 0;
+    commentOn = null;
+    commentLastModifiedAt = null;
+    posting = null;
+    imageUrlMini = "";
+    nickName = "";
+    // commentLikes = null;
   }
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:toonflix/screens/controller/posting_comment_controller.dart';
-import 'package:toonflix/screens/custom_colors.dart';
+import 'package:toonflix/screens/etc/custom_colors.dart';
 
 class GridDetail extends StatefulWidget {
   final gridDetailItem;

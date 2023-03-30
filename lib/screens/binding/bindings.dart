@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:toonflix/screens/controller/gridController.dart';
+import 'package:toonflix/screens/controller/grid_controller.dart';
 import 'package:toonflix/screens/controller/posting_comment_controller.dart';
 import 'package:toonflix/screens/controller/reportController.dart';
 import 'package:toonflix/screens/repository/http_protocol.dart';

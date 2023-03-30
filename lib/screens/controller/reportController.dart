@@ -13,7 +13,7 @@ class ReportController extends GetxController{
   bool onTitle = false;
   //신고리스트 호출시 쿼리로 넣어 줄 api 필터 옵션
   Typelist typeList= Typelist.ALL; 
- int title =0;
+  int title =0;
   void checkedList() {
    reportList.value=[];
    onType=false;

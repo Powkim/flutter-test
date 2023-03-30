@@ -22,22 +22,22 @@ class HttpProtocol implements HttpProtocolAb  {
   }
 }
 //report post 요청 함수
-  Future<Map<String,dynamic>> postHttp() async {
-  try {
-    final response = await dio.post('https://test.kees.tv/api/report', 
-    data: {"type":"POST","idOfType":"250","reportOptionId":6},  
-    options: Options(headers: {'Authorization':token}));
-    return response.data;
-  } 
-  catch (e) {
-    throw Exception();
-  }
-  }
+  // Future<Map<String,dynamic>> postHttp() async {
+  // try {
+  //   final response = await dio.post('https://test.kees.tv/api/report', 
+  //   data: {"type":"POST","idOfType":"250","reportOptionId":6},  
+  //   options: Options(headers: {'Authorization':token}));
+  //   return response.data;
+  // } 
+  // catch (e) {
+  //   throw Exception();
+  // }
+  // }
 
   
-//서버에 썸네일 요청하는 함수
+//포스팅 리스트 요청하는 함수
   @override
-  Future <List<dynamic>> getImage(page) async {
+  Future <List<dynamic>> getPostingList(int page) async {
   try {
    final response = await dio.get('http://10.220.211.96:8080/api/posting/category_posting_list', 
    queryParameters:{'page':page, 'postCategory': '0'},
@@ -45,11 +45,11 @@ class HttpProtocol implements HttpProtocolAb  {
     return response.data['result'];
   } 
   catch (e) {
-  return  [];
+   throw Exception();
   }
  }
-//포스팅 리스트 요청하는 함수
-  Future <List<dynamic>> getCommentList(postNumber,page) async {
+//포스팅 댓글 요청하는 함수
+  Future <List<dynamic>> getCommentList(String postNumber,int page) async {
   try {
     final response = await dio.get('http://10.220.211.96:8080/api/postingComment/list', 
     queryParameters:{ "postNumber" :postNumber,  "page" : page},
@@ -57,7 +57,7 @@ class HttpProtocol implements HttpProtocolAb  {
     return response.data['result'];
   } 
   catch (e) {
-  return  [];
+   throw Exception();
   }
  }
 }

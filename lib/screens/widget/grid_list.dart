@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controller/gridController.dart';
+import '../controller/grid_controller.dart';
 import '../controller/posting_comment_controller.dart';
 import 'posting_detail.dart';
 
@@ -22,7 +22,7 @@ class _GridListState extends State<GridList> {
   }
   //페이지번호 클릭시 새로운 썸네일 리스트 호출하는 함수
   void onClickpage(page){
-   gridcontroller.checkedList(page);
+   gridcontroller.pageClickFuntion(page);
   }
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,9 @@ class _GridListState extends State<GridList> {
       body:
       SafeArea(
         child:
-        Obx(() 
-      => Column( children: [
+        Obx(() => gridcontroller.httpStatus.value==Httpstatus.loading
+        ? const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),))
+        : Column( children: [
           Center(child: 
           //썸네일 리스트 영역
            SizedBox(
@@ -63,8 +64,8 @@ class _GridListState extends State<GridList> {
           },
          ),
         ),
-       ),
-       //페이지 네이션 버튼 리스트
+             ),
+             //페이지 네이션 버튼 리스트
         Center(
           child:Row(
            mainAxisAlignment: MainAxisAlignment.center,
@@ -97,8 +98,8 @@ class _GridListState extends State<GridList> {
           ]   
          ),
         )
-       ],
-      )),)  
+             ],
+            )),)  
     );
   }
 }
