@@ -20,15 +20,3 @@ class BoardView extends StatelessWidget {
     return 1;
   }
 }
-
-// abstract class BoardViewab {
-//   int test2();
-// }
-// class BoardView2 implements BoardViewab{
-//   @override
-//   int test2() {
-//     // TODO: implement test2
-//     throw UnimplementedError();
-//   }
-
-// }

@@ -16,13 +16,13 @@ class _GridListState extends State<GridList> {
   //전체 게시글 리스트 및 페이지네이션용 버튼 호출
   @override
   void initState() {
-    gridcontroller.gridfunction();
-    gridcontroller.pageBtnfunction();
+    gridcontroller.gridFunction();
+    gridcontroller.pageBtnFunction();
     super.initState();
   }
-  //페이지번호 클릭시 새로운 리스트 호출하는 함수
-  void onClickpage(e){
-   gridcontroller.checkedList(e);
+  //페이지번호 클릭시 새로운 썸네일 리스트 호출하는 함수
+  void onClickpage(page){
+   gridcontroller.checkedList(page);
   }
   @override
   Widget build(BuildContext context) {
@@ -34,67 +34,68 @@ class _GridListState extends State<GridList> {
         Obx(() 
       => Column( children: [
           Center(child: 
-           Container(
-            width: 1700,
-            height: 600,
+          //썸네일 리스트 영역
+           SizedBox(
+          width: 1700,
+          height: 600,
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
              crossAxisCount: 8,
              mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-           ),
+             crossAxisSpacing: 10,
+            ),
           itemCount: gridcontroller.gridList.length,
           itemBuilder: (BuildContext context, int index) {
            return GestureDetector(
+           //grid 선택시 상세 보기로 이동
             onTap: () {
-          // final grdiDetailItem=gridcontroller.gridList[index];
-            Get.to(GridDetail(gridDetailItem: gridcontroller.gridList[index],));
-            _postingCommentController.commentListClear();
-            _postingCommentController.commentfunc(gridcontroller.gridList[index].postNumber.toString());
-             //?
-            _postingCommentController.totalComment=gridcontroller.gridList[index].postCommentCount!;
+              Get.to(GridDetail(gridDetailItem: gridcontroller.gridList[index],));
+              _postingCommentController.commentfunc(gridcontroller.gridList[index].postNumber.toString());
             },
-            child:Container(
+            child:SizedBox(
              width: 1700,
-             child: gridcontroller.gridList[index].postFileList!.isEmpty 
-           ? Image.network(gridcontroller.gridList[index].imageUrlMini.toString(),fit: BoxFit.cover)
-           : Image.network(gridcontroller.gridList[index].postFileList![0].thumbnailUrl.toString(),fit: BoxFit.cover) 
+             // 게시글에 사진이 있으면 게시글 썸네일 이미지, 없으면 프로필 이미지
+              child: gridcontroller.gridList[index].postFileList!.isEmpty 
+                ? Image.network(gridcontroller.gridList[index].imageUrlMini.toString(),fit: BoxFit.cover)
+                : Image.network(gridcontroller.gridList[index].postFileList![0].thumbnailUrl.toString(),fit: BoxFit.cover) 
             ),
            );
           },
          ),
         ),
        ),
+       //페이지 네이션 버튼 리스트
         Center(
           child:Row(
            mainAxisAlignment: MainAxisAlignment.center,
            children:[
            gridcontroller.currentGroup>1 
-         ? TextButton(
-            onPressed:(()=>{
-            gridcontroller.groupChangefunction('minus')}), 
-            child: Text('◀')
+            ? TextButton(
+              onPressed:(()=>{
+              gridcontroller.groupChangeFunction('minus')}), 
+              child:const Text('◀')
           )
-         : const SizedBox(),
-             Container(
+            : const SizedBox(),
+            //페이지네이션 버튼 리스트
+             SizedBox(
               width: 600,
               height: 100,
               child: ListView(
               scrollDirection:Axis.horizontal,
               children:           
-              gridcontroller.showBtnList.map((e) 
-              =>TextButton(onPressed:(()=>onClickpage(e)),
-              child: Text(e.toString(),style: TextStyle(color: e==gridcontroller.currentPage?Colors.red:Colors.blue),)
+              gridcontroller.showBtnList.map((page) 
+              =>TextButton(onPressed:(()=>onClickpage(page)),
+              child: Text(page.toString(),style: TextStyle(color: page==gridcontroller.currentPage?Colors.red:Colors.blue),)
               )).toList()
              ),
             ),
             //현재 페이지 그룹이 마지막 페이지 그룹보다 작을 때  
             gridcontroller.currentGroup<gridcontroller.totalGroup 
-            ? TextButton(onPressed:(()=>{gridcontroller.groupChangefunction('plus')}) , 
-                             child: Text('▶'))
-            : const SizedBox()
-           ]   
-          ),
+              ? TextButton(onPressed:(()=>{gridcontroller.groupChangeFunction('plus')}) , 
+                             child: const Text('▶'))
+              : const SizedBox()
+          ]   
+         ),
         )
        ],
       )),)  

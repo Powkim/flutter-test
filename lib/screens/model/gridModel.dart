@@ -44,9 +44,7 @@ class GridModel {
   GridModel.fromJson(Map<String, dynamic> json) {
     postContent = json['postContent'];
     postLastModifiedAt = json['postLastModifiedAt'].cast<int>();
-    // for(var i=0;i<=json['postCreatedAt'].length;i++){
-    // DateTime.utc(json['postCreatedAt'][i]);
-    // }
+   
     DateTime date = json['postCreatedAt'].length==6
     ?DateTime.utc(
     json['postCreatedAt'][0],json['postCreatedAt'][1],json['postCreatedAt'][2],json['postCreatedAt'][3],json['postCreatedAt'][4],json['postCreatedAt'][5])

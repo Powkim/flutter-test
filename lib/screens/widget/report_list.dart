@@ -5,39 +5,59 @@ import 'package:toonflix/screens/custom_colors.dart';
 import 'package:toonflix/screens/controller/reportController.dart';
 
 enum Typelist {ALL,POST,ROOM,USER}
-enum Titlelist {ALL,B,C,D,E,F,G,H}
-
-class BoardList extends StatefulWidget {
-  BoardList({super.key});
-  @override
-  State<BoardList> createState() => _BoardListState();
+enum TitleList {
+  ALL("ALL"),
+verbalAbuse("폭언 및 욕설"),
+discriminatory("차별적인 발언"),
+interruption("대화 방해"),
+advertisement("광고"),
+Harassment("성희롱"),
+illegal("불법");
+const TitleList(this.koreanName);
+  final String koreanName;
+String getKrName(){
+  return koreanName;
+} 
 }
-class _BoardListState extends State<BoardList> {
+enum Filterindex {onTypeFilter,onTitleFilter}
+
+class ReportList extends StatefulWidget {
+  const ReportList({super.key});
+  @override
+  State<ReportList> createState() => _ReportListState();
+}
+class _ReportListState extends State<ReportList> {
   final ReportController reportcontroller = Get.find();
   final scrollController = ScrollController();
   final titlelist=["id","type","OptionTitle","createAt","Userid","name","phonenumber","email"];
  
  //filter on/off 확인용 함수
-  void filterHide(index) {
+  void filterHide(Filterindex filterindex) {
        setState(() {
-        if(index==1){
-          reportcontroller.onType=!reportcontroller.onType;}
-        else {
-          reportcontroller.onTitle=!reportcontroller.onTitle;}
-          });
+        switch (filterindex) {
+            case Filterindex.onTypeFilter:
+              reportcontroller.onType=!reportcontroller.onType;
+              break;
+            case Filterindex.onTitleFilter:
+              reportcontroller.onTitle=!reportcontroller.onTitle;
+              break;
+          }
+         })
+          ;
+        
        }
-  //필터 최초 옵션
   Typelist _typelist = Typelist.ALL;   
-  Titlelist _titlelist = Titlelist.ALL; 
+  TitleList _titlelist = TitleList.ALL; 
 
   @override
   void initState() {
-    reportcontroller.reportfunction();
+    reportcontroller.reportFunction();
     scrollController.addListener(() {
-      if(scrollController.position.pixels>=scrollController.position.maxScrollExtent&& reportcontroller.isLast==false){
-       reportcontroller.reportfunction();
+      if(scrollController.position.pixels>=scrollController.position.maxScrollExtent&& reportcontroller.isLast.value==false){
+       reportcontroller.reportFunction();
       }
       });
+    super.initState();
   }
   void onTop(){
     scrollController.jumpTo(0);
@@ -46,52 +66,60 @@ class _BoardListState extends State<BoardList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-        title:  Text("신고 리스트"),
+        title: const Text("신고 리스트"),
         backgroundColor: customColors.get(ColorSet.talkRoomHeader),
       ),
         body: SafeArea(
          child: 
-         Obx(()=> reportcontroller.httpstatus == Httpstatus.loading 
-         ?  Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),))
+         Obx(()=> reportcontroller.httpstatus.value == Httpstatus.loading 
+         ? const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),))
          :  Center(
-            child: Container(
+            child: SizedBox(
             width: 1700,
             child: Column(
                     children: [
+                    //Reportlist header
                      Container(
                       height: 50,  
-                      margin:EdgeInsets.fromLTRB(0, 20,0, 0),
-                       child: ListView.builder(
+                      margin:const EdgeInsets.fromLTRB(0, 20,0, 0),
+                       child: 
+                     ListView.builder(
                       scrollDirection:Axis.horizontal,        
                       itemCount: titlelist.length,
                       itemBuilder: (context, index) {
+                        Filterindex filterindex;
+                        if(index==1){
+                         filterindex= Filterindex.onTypeFilter;
+                        }
+                        else{
+                          filterindex=Filterindex.onTitleFilter;
+                        }
                        return Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         width: 200,
                         height: 50,
                         child:Center(
                          child: TextButton(
-                              onPressed:()=>filterHide(index),
-                              child: Text('${titlelist[index]}',
-                              style: TextStyle(fontWeight: FontWeight.bold),)
-                        )
-                      ),
-                     ) ;
-                     
-                   },
-                  )
-                ),
-
-                 Stack(
-                   children: [
+                                 onPressed:()=>filterHide(filterindex),
+                                 child: Text(titlelist[index],
+                                 style:const TextStyle(fontWeight: FontWeight.bold),)
+                              )
+                             ),
+                        ) ;
+                      },
+                    )
+                  ),
+                   Stack(
+                    children: [
+                    //신고 리스트 영역
                      Container(
                       height:700,
-                      padding:EdgeInsets.fromLTRB(0, 5,0, 0),
+                      padding:const EdgeInsets.fromLTRB(0, 5,0, 0),
                       child: ListView.builder(
                       controller:scrollController,
                       itemCount: reportcontroller.reportList.length,
                       itemBuilder: (BuildContext context, int index) {
-            return  Container(
+                     return  Container(
                       height: 100,
                       color: Colors.white,
                       child: Column(     
@@ -109,115 +137,110 @@ class _BoardListState extends State<BoardList> {
                          headerTitle(reportcontroller.reportList[index].userId!.email.toString()),
                          ],
                         ),          
-                        Row(
-                          children: [
-                           Text(''),
-                           ],
-                        ),          
                       (index+1==reportcontroller.reportList.length)&&(reportcontroller.httpstatus.value == Httpstatus.loadingmore)
-                      ? Center(
+                      ? const Center(
                           child: 
                           CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.black),))
-                      : SizedBox() 
+                      : const SizedBox() 
                       ],
                      ),
                    );
                   }),
                 ),
-                    
+                //Type 필터 영역
                   Positioned(
                       bottom: 50,
                       right: 50,
-                      child: IconButton(onPressed: onTop, icon:Icon(Icons.arrow_upward_outlined))),
-                       Visibility(child: Positioned(
-                                top:0,left:200,child:
-                    Container(
-                       width:200,
-                      height:250,
-                      decoration: BoxDecoration(border: Border.all(),color: Colors.white,
-                        ),
-                      child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                      typeBtn("ALL",Typelist.ALL,_typelist),
-                      typeBtn("POST",Typelist.POST,_typelist),
-                      typeBtn("USER",Typelist.USER,_typelist),
-                      typeBtn("ROOM",Typelist.ROOM,_typelist),
-                     Row(
-                      children: [                
-                       TextButton(onPressed: ()=>filterHide(1), child: Text('취소'))
-                        ],
-                       )
-                      ],
-                    ),
-                  )
-                ,),
-                visible: reportcontroller.onType
-               ),
+                      child: IconButton(onPressed: onTop, icon:const  Icon(Icons.arrow_upward_outlined))),
+                       Visibility(  
+                        child:Positioned(top:0,left:200,
+                         child:
+                         Container(
+                          width:200,
+                          height:250,
+                          decoration: BoxDecoration(border: Border.all(),color: Colors.white),
+                          child: Column(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                             typeBtn(Typelist.ALL),
+                             typeBtn(Typelist.POST),
+                             typeBtn(Typelist.USER),
+                             typeBtn(Typelist.ROOM),
+                             Row(
+                             children: [                
+                              TextButton(onPressed: ()=>filterHide(Filterindex.onTypeFilter), child: const Text('취소'))
+                              ],
+                             )
+                            ],
+                           ),
+                         )
+                       ,),
+                      visible: reportcontroller.onType
+                     ),
+                 //OptionTitle 필터 영역    
                  Visibility(child: 
-                 Positioned(
-                  top:0,left:400,
-                  child:Container(
-                  width:200,
-                  height:260,
-                  decoration: BoxDecoration(border: Border.all(),color: Colors.white),
-                  child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    titleBtn("All", Titlelist.ALL, "0"),
-                    titleBtn("폭언 및 욕설", Titlelist.B, "1"),
-                    titleBtn("차별적인 발언", Titlelist.C, "2"),
-                    titleBtn("대화 방해", Titlelist.D, "3"),
-                    titleBtn("광고", Titlelist.E, "4"),
-                    titleBtn("성희롱", Titlelist.F, "5"),
-                    titleBtn("불법", Titlelist.G, "6")
-    ,               Row(
-                      children: [                
-                      TextButton(onPressed: ()=>filterHide(2), child: Text('취소'))
-                      ],
+                  Positioned(
+                    top:0,left:400,
+                    child:Container(
+                    width:200,
+                    height:260,
+                    decoration: BoxDecoration(border: Border.all(),color: Colors.white),
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      titleBtn(TitleList.ALL),
+                      titleBtn(TitleList.verbalAbuse),
+                      titleBtn(TitleList.discriminatory),
+                      titleBtn(TitleList.interruption),
+                      titleBtn(TitleList.advertisement),
+                      titleBtn(TitleList.Harassment),
+                      titleBtn(TitleList.illegal)
+      ,               Row(
+                        children: [                
+                        TextButton(onPressed: ()=>filterHide(Filterindex.onTitleFilter), child: const Text('취소'))
+                        ],
+                      )
+                    ],
+                    ),
                     )
-                   ],
-                  ),
-                  )
-                ,)
-              ,visible: reportcontroller.onTitle
-             )
-            ]
-          ),
-        ])         
-       )    
-      )   
-
-)));
-  }
+                  ,)
+                ,visible: reportcontroller.onTitle
+               )
+              ]
+             ),
+           ])         
+          )    
+         )   
+        )));
+       }
 //신고 리스트 제목
   Widget headerTitle(String content) {
-    return Container(
+    return SizedBox(
    width: 200,
        child: Text(content,textAlign:TextAlign.center),
     );
   }
 //타입 필터링용 버튼
-  Widget typeBtn(String type,data, Typelist group){
+  Widget typeBtn(Typelist enumValue){
     return    Row(
                children: [
                Radio(
-              value: data,
-              groupValue: group,
+              value: enumValue,
+              groupValue: _typelist,
               onChanged: (value) {
                 setState(() {
-                group==Titlelist? _titlelist = value!: _typelist = value!;
-                reportcontroller.typeList=type=="ALL"?'':type;
+                _typelist=value!;
+                reportcontroller.typeList=enumValue;
                 reportcontroller.checkedList();
                  });
                 },
                ),
-              Text(type)
+              Text(enumValue.name)
               ],
              ) ;
             }
  //옵션 타이틀 필터링용 버튼           
-  Widget titleBtn(String text, enumValue, titleId){
+  Widget titleBtn(TitleList enumValue){
          return Row(
                children: [
                 Radio(
@@ -226,12 +249,12 @@ class _BoardListState extends State<BoardList> {
                 onChanged: (value) {
                  setState(() {
                  _titlelist = value!;
-                  reportcontroller.title=titleId;
+                  reportcontroller.title=enumValue.index;
                  reportcontroller.checkedList();
                   });
                 },
               ),
-              Text(text)
+              Text(enumValue.koreanName)
               ],
              ) ;
             }
