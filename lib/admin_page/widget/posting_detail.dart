@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:adminpage/screens/controller/posting_comment_controller.dart';
-import 'package:adminpage/screens/etc/custom_colors.dart';
+import 'package:adminpage/admin_page/controller/posting_comment_controller.dart';
+import 'package:adminpage/admin_page/etc/custom_colors.dart';
 
 class GridDetail extends StatefulWidget {
   final gridDetailItem;

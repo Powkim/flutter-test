@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:adminpage/screens/widget/report_list.dart';
+import 'package:adminpage/admin_page/widget/report_list.dart';
 import '../repository/http_protocol.dart';
 import '../model/reportModel.dart';
 enum Httpstatus{loading,success,empty,loadingmore,error}

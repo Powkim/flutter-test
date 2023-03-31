@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:adminpage/screens/controller/grid_controller.dart';
-import 'package:adminpage/screens/controller/posting_comment_controller.dart';
-import 'package:adminpage/screens/controller/reportController.dart';
-import 'package:adminpage/screens/repository/http_protocol.dart';
+import 'package:adminpage/admin_page/controller/grid_controller.dart';
+import 'package:adminpage/admin_page/controller/posting_comment_controller.dart';
+import 'package:adminpage/admin_page/controller/reportController.dart';
+import 'package:adminpage/admin_page/repository/http_protocol.dart';
 
 
 

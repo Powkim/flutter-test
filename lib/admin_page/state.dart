@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:adminpage/screens/widget/report_list.dart';
-import 'package:adminpage/screens/etc/custom_colors.dart';
-import 'package:adminpage/screens/widget/grid_list.dart';
+import 'package:adminpage/admin_page/widget/report_list.dart';
+import 'package:adminpage/admin_page/etc/custom_colors.dart';
+import 'package:adminpage/admin_page/widget/grid_list.dart';
 
 class Statemain extends StatefulWidget {
   const Statemain({super.key});
